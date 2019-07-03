@@ -1,9 +1,5 @@
 ﻿using IU.PlanManager.ConApp.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IU.PlanManager.ConApp
 {
@@ -13,7 +9,8 @@ namespace IU.PlanManager.ConApp
         {
             IStore<Event> eventStore = new EventStore();
 
-            while (true)
+            var doWhile = true; 
+            while (doWhile)
             {
                 //todo добавить все варианты в коллекцию - использовать из неё
                 Console.WriteLine("0. Clear screen");
@@ -68,6 +65,8 @@ namespace IU.PlanManager.ConApp
                         break;
 
                     case "9":
+                        doWhile = false;
+                        break;
                     default:
                         break;
                 }
