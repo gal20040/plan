@@ -1,4 +1,5 @@
-﻿using IU.PlanManager.ConApp.Models;
+﻿using IU.PlanManager.ConApp.Helper;
+using IU.PlanManager.ConApp.Models;
 using System;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace IU.PlanManager.ConApp
     {
         static void Main(string[] args)
         {
-            IStore<Event> eventStore = new EventStore();
+            IStore<Event> eventStore = new EventFileStore();
 
             var doWhile = true;
             while (doWhile)
@@ -17,6 +18,8 @@ namespace IU.PlanManager.ConApp
                 Console.WriteLine("0. Clear screen");
                 Console.WriteLine("1. Add event");
                 Console.WriteLine("2. Show all events");
+                Console.WriteLine("3. Save events to XML");
+                Console.WriteLine("4. Get events from XML");
                 Console.WriteLine("9. Exit");
 
                 //Получить выбор юзера
@@ -82,6 +85,17 @@ namespace IU.PlanManager.ConApp
 
                         break;
 
+                    case "3":
+                        XmlHelper.SaveToFile(eventStore.Entities);
+                        eventStore = new EventFileStore();
+                        break;
+                    case "4":
+                        eventStore = new EventFileStore();
+                        foreach (var @event in XmlHelper.GetEventsFromXmlFile())
+                        {
+                            eventStore.Add(@event);
+                        }
+                        break;
                     case "9":
                         doWhile = false;
                         break;

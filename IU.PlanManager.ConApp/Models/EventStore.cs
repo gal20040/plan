@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IU.PlanManager.ConApp.Models
 {
@@ -11,7 +9,7 @@ namespace IU.PlanManager.ConApp.Models
     /// </summary>
     public class EventStore : IStore<Event> //EventStore должен реализовать IStore именно для Event
     {
-        private List<Event> Events { get;  }
+        private List<Event> Events { get; }
 
         /// <summary>
         /// Список событий <see cref="Event">

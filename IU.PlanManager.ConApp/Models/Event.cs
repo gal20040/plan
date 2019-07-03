@@ -2,6 +2,7 @@
 
 namespace IU.PlanManager.ConApp.Models
 {
+    [Serializable]
     public class Event : IEntity
     {
         private Event()
