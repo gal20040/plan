@@ -1,5 +1,6 @@
 ﻿using IU.PlanManager.ConApp.Models;
 using System;
+using System.Linq;
 
 namespace IU.PlanManager.ConApp
 {
@@ -9,7 +10,7 @@ namespace IU.PlanManager.ConApp
         {
             IStore<Event> eventStore = new EventStore();
 
-            var doWhile = true; 
+            var doWhile = true;
             while (doWhile)
             {
                 //todo добавить все варианты в коллекцию - использовать из неё
@@ -30,15 +31,15 @@ namespace IU.PlanManager.ConApp
                     case "1":
                         //если выбрано Добавить, просим ввести Title и прочее
                         //сохраняем в хранилище, пишем, что всё ок
-                        Console.WriteLine("Add title:");
-                        var title = Console.ReadLine();
 
-                        if (title == string.Empty)
-                        {
-                            return;
-                        }
+                        GetInfoForNewEvent(out string title,
+                                           out string description,
+                                           out DateTime? startDateTime,
+                                           out DateTime? endDateTime,
+                                           out string place);
 
-                        var newEvent = CreateEvent(title);
+
+                        var newEvent = new Event(title, description, startDateTime, endDateTime, place);
 
                         if (newEvent != null)
                         {
@@ -55,11 +56,28 @@ namespace IU.PlanManager.ConApp
                     case "2":
                         //если выбрано Показать, то получаем все события из хранилища и показываем списком
 
-                        foreach (var @event in eventStore.Entities)
+                        Console.WriteLine();
+
+                        if (eventStore.Entities.Count() == 0)
                         {
-                            Console.WriteLine($"{@event.Guid} {@event.Title}");
-                            Console.WriteLine();
-                            //todo доработать вывод
+                            Console.WriteLine("###################");
+                            Console.WriteLine("Event list is empty");
+                            Console.WriteLine("###################");
+                        }
+                        else
+                        {
+                            Console.WriteLine("###################");
+                            Console.WriteLine("List of all events:");
+                            Console.WriteLine("###################");
+                            foreach (var @event in eventStore.Entities)
+                            {
+                                Console.WriteLine(@event);
+                                Console.WriteLine();
+                                //todo доработать вывод
+                            }
+
+                            Console.WriteLine("End of event list");
+                            Console.WriteLine("#################");
                         }
 
                         break;
@@ -77,17 +95,61 @@ namespace IU.PlanManager.ConApp
             Console.ReadKey();
         }
 
-        public static Event CreateEvent(string title)
+        private static void GetInfoForNewEvent(out string title, out string description, out DateTime? startDateTime, out DateTime? endDateTime, out string place)
         {
-            if (title == string.Empty)
-            {
-                return null;
-            }
+            title = GetInputString("Add title:");
+            description = GetInputString("Add description:");
+            startDateTime = null;
 
-            return new Event
+            var dateTimeMessageTemplate = "Add {0} (press enter to leave empty date), e.g. 23.12.2019 22:40:24:";
+            do
             {
-                Title = title
-            };
+                if (startDateTime != null)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("'StartDateTime' should be lesser than 'EndDateTime'.");
+                }
+                startDateTime = GetInputDateTime(string.Format(dateTimeMessageTemplate, "startDateTime"));
+                endDateTime = null;
+                if (startDateTime != null)
+                {
+                    endDateTime = GetInputDateTime(string.Format(dateTimeMessageTemplate, "endDateTime"));
+                }
+            } while (startDateTime != null && endDateTime != null
+                  && startDateTime >= endDateTime);
+
+            place = GetInputString("Add place:");
+        }
+
+        private static string GetInputString(string dataDemandString)
+        {
+            Console.WriteLine(dataDemandString);
+            var input = string.Empty;
+
+            do
+            {
+                input = Console.ReadLine();
+            } while (string.IsNullOrWhiteSpace(input));
+
+            return input;
+        }
+
+        private static DateTime? GetInputDateTime(string dataDemandString)
+        {
+            Console.WriteLine(dataDemandString);
+            var input = string.Empty;
+            DateTime dateTimeResult;
+
+            do
+            {
+                input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    return null;
+                }
+            } while (!DateTime.TryParse(input, out dateTimeResult));
+
+            return dateTimeResult;
         }
     }
 }
