@@ -1,5 +1,6 @@
 ﻿using IU.PlanManager.Core.Interfaces;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace IU.PlanManager.Core.Models
 {
@@ -75,6 +76,7 @@ namespace IU.PlanManager.Core.Models
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
+        [Key]
         public Guid Guid { get; set; }
 
         /// <summary>

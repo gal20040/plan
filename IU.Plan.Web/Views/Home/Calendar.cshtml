@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Calendar";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<div>
+    <table>
+        <tr>
+            <td><p>Название события</p></td>
+            <td><p>Описание</p></td>
+            <td><p>Дата/время начала</p></td>
+            <td><p>Дата/время окончания</p></td>
+            <td><p>Место</p></td>
+        </tr>
+        @foreach (var evt in ViewBag.Events)
+        {
+            <tr>
+                <td><p>@evt.Title</p></td>
+                <td><p>@evt.Description</p></td>
+                <td><p>@evt.StartDateTime</p></td>
+                <td><p>@evt.EndDateTime</p></td>
+                <td><p>@evt.Place</p></td>
+            </tr>
+        }
+    </table>
+</div>
