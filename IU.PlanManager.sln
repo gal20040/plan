@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IU.Plan.Web", "IU.Plan.Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IU.PlanManager.Core", "IU.PlanManager.Core\IU.PlanManager.Core.csproj", "{3419FF97-E5CD-4C00-8A49-6B5B351A8995}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IU.Plan.ConApp", "IU.Plan.ConApp\IU.Plan.ConApp.csproj", "{E9110EB3-2166-4D47-93A0-3B08047FD689}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3419FF97-E5CD-4C00-8A49-6B5B351A8995}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3419FF97-E5CD-4C00-8A49-6B5B351A8995}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3419FF97-E5CD-4C00-8A49-6B5B351A8995}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9110EB3-2166-4D47-93A0-3B08047FD689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9110EB3-2166-4D47-93A0-3B08047FD689}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9110EB3-2166-4D47-93A0-3B08047FD689}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9110EB3-2166-4D47-93A0-3B08047FD689}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
