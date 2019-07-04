@@ -13,7 +13,7 @@ namespace IU.PlanManager.Core.Impl
     /// <typeparam name="T"></typeparam>
     public class BaseFileStore<T> : IStore<T> where T : class, IEntity
     {
-        private string fileName = "{0}.json";
+        private string fileName = AppDomain.CurrentDomain.BaseDirectory + @"..\{0}.json";
 
         /// <summary>
         /// ctor
