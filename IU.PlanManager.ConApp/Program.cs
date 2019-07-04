@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace IU.PlanManager.ConApp
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -88,12 +88,12 @@ namespace IU.PlanManager.ConApp
                         break;
 
                     case "3":
-                        XmlHelper.SaveToFile(eventStore.Entities);
+                        XmlHelper.SaveToFile(eventStore.Entities, fileName);
                         eventStore = new EventFileStore();
                         break;
                     case "4":
                         eventStore = new EventFileStore();
-                        foreach (var @event in XmlHelper.GetEventsFromXmlFile())
+                        foreach (var @event in XmlHelper.GetEntitiesFromXmlFile(fileName))
                         {
                             eventStore.Add(@event);
                         }

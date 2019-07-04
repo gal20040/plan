@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper\XmlHelper.cs" />
+    <Compile Include="Impl\BaseFileStore.cs" />
+    <Compile Include="Impl\IUserStore.cs" />
+    <Compile Include="Impl\UserFileStore.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IStore.cs" />
     <Compile Include="Models\Event.cs" />

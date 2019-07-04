@@ -39,6 +39,11 @@ namespace IU.PlanManager.ConApp.Models
         /// Пол
         /// </summary>
         public Gender Gender { get; set; }
+
+        /// <summary>
+        /// Статус пользователя
+        /// </summary>
+        public Status Status { get; set; }
     }
 
     /// <summary>
@@ -58,5 +63,20 @@ namespace IU.PlanManager.ConApp.Models
         /// Мужской
         /// </summary>
         Male
+    }
+
+    /// <summary>
+    /// Статус пользователя
+    /// </summary>
+    public enum Status
+    {
+        /// <summary>
+        /// Пользователь активен
+        /// </summary>
+        Active,
+        /// <summary>
+        /// Пользователь удалён
+        /// </summary>
+        Deleted
     }
 }

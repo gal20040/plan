@@ -27,7 +27,7 @@ namespace IU.PlanManager.ConApp.Helper
             new XmlSerializer(typeof(List<IEntity>)).Serialize(writer, entities);
         }
 
-        public static List<IEntity> GetEntitiesFromXmlFile(string fileName)
+        public static IEnumerable<IEntity> GetEntitiesFromXmlFile(string fileName)
         {
             var entities = new List<IEntity>();
             var reader = new StreamReader(fileName);
