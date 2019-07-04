@@ -28,6 +28,13 @@ namespace IU.PlanManager.ConApp.Impl
         }
 
         /// <inheritdoc/>
+        public override void UpdateByGuid(User user)
+        {
+            Delete(user.Guid);
+            Add(user);
+        }
+
+        /// <inheritdoc/>
         public override User Get(Guid guid)
         {
             var user = base.Get(guid);

@@ -20,8 +20,8 @@ namespace IU.PlanManager.ConApp
                 Console.WriteLine("0. Clear screen");
                 Console.WriteLine("1. Add event");
                 Console.WriteLine("2. Show all events");
-                Console.WriteLine("3. Save events to XML");
-                Console.WriteLine("4. Get events from XML");
+                //Console.WriteLine("3. Save events to XML");
+                //Console.WriteLine("4. Get events from XML");
                 Console.WriteLine("9. Exit");
 
                 //Получить выбор юзера
@@ -87,17 +87,17 @@ namespace IU.PlanManager.ConApp
 
                         break;
 
-                    case "3":
-                        XmlHelper.SaveToFile(eventStore.Entities, fileName);
-                        eventStore = new EventFileStore();
-                        break;
-                    case "4":
-                        eventStore = new EventFileStore();
-                        foreach (var @event in XmlHelper.GetEntitiesFromXmlFile(fileName))
-                        {
-                            eventStore.Add(@event);
-                        }
-                        break;
+                    //case "3":
+                    //    XmlHelper.SaveToFile(eventStore.Entities, fileName);
+                    //    eventStore = new EventFileStore();
+                    //    break;
+                    //case "4":
+                    //    eventStore = new EventFileStore();
+                    //    foreach (var @event in XmlHelper.GetEntitiesFromXmlFile(fileName))
+                    //    {
+                    //        eventStore.Add(@event);
+                    //    }
+                    //    break;
                     case "9":
                         doWhile = false;
                         break;

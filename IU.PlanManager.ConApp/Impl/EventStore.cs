@@ -32,12 +32,10 @@ namespace IU.PlanManager.ConApp.Impl
         /// <param name="@event">Событие</param>
         public void Add(Event @event)
         {
-            if (@event == null)
+            if (@event != null)
             {
-                return;
+                Events.Add(@event);
             }
-
-            Events.Add(@event);
         }
 
         /// <summary>
