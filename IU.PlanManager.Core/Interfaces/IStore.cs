@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IU.PlanManager.ConApp.Interfaces
+namespace IU.PlanManager.Core.Interfaces
 {
     /// <summary>
     /// Интерфейс хранилища сущностей

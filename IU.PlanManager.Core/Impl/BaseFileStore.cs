@@ -1,11 +1,11 @@
-﻿using IU.PlanManager.ConApp.Interfaces;
+﻿using IU.PlanManager.Core.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace IU.PlanManager.ConApp.Impl
+namespace IU.PlanManager.Core.Impl
 {
     /// <summary>
     /// Хранилище сущностей <see cref="IEntity"/>

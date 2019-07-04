@@ -1,11 +1,11 @@
-﻿using IU.PlanManager.ConApp.Interfaces;
-using IU.PlanManager.ConApp.Models;
+﻿using IU.PlanManager.Core.Interfaces;
+using IU.PlanManager.Core.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace IU.PlanManager.ConApp.Helper
+namespace IU.PlanManager.Core.Helper
 {
     public static class XmlHelper
     {

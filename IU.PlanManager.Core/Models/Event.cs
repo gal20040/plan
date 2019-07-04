@@ -1,7 +1,7 @@
-﻿using IU.PlanManager.ConApp.Interfaces;
+﻿using IU.PlanManager.Core.Interfaces;
 using System;
 
-namespace IU.PlanManager.ConApp.Models
+namespace IU.PlanManager.Core.Models
 {
     [Serializable]
     public class Event : IEntity

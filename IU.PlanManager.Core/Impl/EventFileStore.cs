@@ -1,6 +1,6 @@
-﻿using IU.PlanManager.ConApp.Models;
+﻿using IU.PlanManager.Core.Models;
 
-namespace IU.PlanManager.ConApp.Impl
+namespace IU.PlanManager.Core.Impl
 {
     /// <summary>
     /// Хранилище событий <see cref="Event"/>

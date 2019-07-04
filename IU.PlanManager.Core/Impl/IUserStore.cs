@@ -1,8 +1,8 @@
-﻿using IU.PlanManager.ConApp.Interfaces;
-using IU.PlanManager.ConApp.Models;
+﻿using IU.PlanManager.Core.Interfaces;
+using IU.PlanManager.Core.Models;
 using System.Collections.Generic;
 
-namespace IU.PlanManager.ConApp.Impl
+namespace IU.PlanManager.Core.Impl
 {
     public interface IUserStore : IStore<User>
     {
