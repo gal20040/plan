@@ -44,16 +44,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper\XmlHelper.cs" />
-    <Compile Include="IEntity.cs" />
-    <Compile Include="IStore.cs" />
+    <Compile Include="Interfaces\IEntity.cs" />
+    <Compile Include="Interfaces\IStore.cs" />
     <Compile Include="Models\Event.cs" />
-    <Compile Include="Models\EventFileStore.cs" />
-    <Compile Include="Models\EventStore.cs" />
+    <Compile Include="Impl\EventFileStore.cs" />
+    <Compile Include="Impl\EventStore.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

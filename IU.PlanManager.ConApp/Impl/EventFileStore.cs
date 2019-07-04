@@ -1,9 +1,11 @@
 ﻿using IU.PlanManager.ConApp.Helper;
+using IU.PlanManager.ConApp.Interfaces;
+using IU.PlanManager.ConApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IU.PlanManager.ConApp.Models
+namespace IU.PlanManager.ConApp.Impl
 {
     public class EventFileStore : IStore<Event> //EventFileStore должен реализовать IStore именно для Event
     {

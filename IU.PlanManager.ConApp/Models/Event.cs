@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IU.PlanManager.ConApp.Interfaces;
+using System;
 
 namespace IU.PlanManager.ConApp.Models
 {

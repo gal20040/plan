@@ -1,8 +1,10 @@
-﻿using System;
+﻿using IU.PlanManager.ConApp.Interfaces;
+using IU.PlanManager.ConApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IU.PlanManager.ConApp.Models
+namespace IU.PlanManager.ConApp.Impl
 {
     /// <summary>
     /// Хранилище событий <see cref="Event">

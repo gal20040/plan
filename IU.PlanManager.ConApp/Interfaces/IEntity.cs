@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IU.PlanManager.ConApp
+namespace IU.PlanManager.ConApp.Interfaces
 {
     /// <summary>
     /// Интерфейс сущности
