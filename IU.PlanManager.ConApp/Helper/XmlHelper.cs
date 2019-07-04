@@ -1,4 +1,5 @@
-﻿using IU.PlanManager.ConApp.Models;
+﻿using IU.PlanManager.ConApp.Interfaces;
+using IU.PlanManager.ConApp.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,14 +9,12 @@ namespace IU.PlanManager.ConApp.Helper
 {
     public static class XmlHelper
     {
-        private const string FILE_NAME = "events.xml";
-
-        public static void SaveToFile(IEnumerable<Event> events)
+        public static void SaveToFile(IEnumerable<IEntity> entities, string fileName)
         {
-            var writer = new StreamWriter(FILE_NAME);
+            var writer = new StreamWriter(fileName);
             try
             {
-                WriteDataToXmlFile(events.ToList(), writer);
+                WriteDataToXmlFile(entities.ToList(), writer);
             }
             finally
             {
@@ -23,25 +22,25 @@ namespace IU.PlanManager.ConApp.Helper
             }
         }
 
-        private static void WriteDataToXmlFile(List<Event> events, StreamWriter writer)
+        private static void WriteDataToXmlFile(List<IEntity> entities, StreamWriter writer)
         {
-            new XmlSerializer(typeof(List<Event>)).Serialize(writer, events);
+            new XmlSerializer(typeof(List<IEntity>)).Serialize(writer, entities);
         }
 
-        public static List<Event> GetEventsFromXmlFile()
+        public static List<IEntity> GetEntitiesFromXmlFile(string fileName)
         {
-            var events = new List<Event>();
-            var reader = new StreamReader(FILE_NAME);
+            var entities = new List<IEntity>();
+            var reader = new StreamReader(fileName);
             try
             {
-                events = (List<Event>)new XmlSerializer(typeof(List<Event>)).Deserialize(reader);
+                entities = (List<IEntity>)new XmlSerializer(typeof(List<IEntity>)).Deserialize(reader);
             }
             finally
             {
                 reader.Close();
             }
 
-            return events;
+            return entities;
         }
     }
 }
