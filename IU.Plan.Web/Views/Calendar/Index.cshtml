@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Event>
+@using IU.PlanManager.Core.Models
+
+@{
+    ViewBag.Title = "Calendar";
+
+    var today = DateTime.Now;
+    var firstDayOfMonth = new DateTime(today.Year, today.Month, 1);
+    var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+    var dayNumberOfTheFirstMonthDay = firstDayOfMonth.DayOfWeek;
+
+    var dayCounter = 1;
+}
+
+@helper PrintEvents(int dayCounter, DateTime lastDayOfMonth)
+{
+    var today = DateTime.Now;
+
+    if (dayCounter <= lastDayOfMonth.Day)
+    {
+        var currDay = new DateTime(today.Year, today.Month, dayCounter);
+        var evt = Model.FirstOrDefault(evnt => evnt.StartDateTime == currDay);
+        if (evt != null)
+        {
+            <div>@evt.Title</div>
+        }
+    }
+
+}
+
+<h2>Calendar</h2>
+
+<ul>
+    @foreach (var evt in Model)
+    {
+        <li>
+            @evt
+        </li>
+    }
+</ul>
+
+<div class="table-responsive">
+
+    <table class="table table-bordered">
+        <tr>
+            <th>понедельник</th>
+            <th>вторник</th>
+            <th>среда</th>
+            <th>четверг</th>
+            <th>пятница</th>
+            <th>суббота</th>
+            <th>воскресенье</th>
+        </tr>
+        @for (int i = 0; i < 5; i++)
+        {
+            <tr>
+                @for (int j = 0; j < 7; j++)
+                {
+
+
+                    var tdClass = dayCounter == DateTime.Now.Day ? "bg-info" : "";
+                    <td class=@(tdClass)>
+                        @((dayCounter <= lastDayOfMonth.Day) ? dayCounter++.ToString() : "")
+                        @PrintEvents(dayCounter, lastDayOfMonth)
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+
+</div>
