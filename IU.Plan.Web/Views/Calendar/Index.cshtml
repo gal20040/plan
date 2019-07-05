@@ -1,38 +1,32 @@
-﻿@model IEnumerable<Event>
-@using IU.PlanManager.Core.Models
+﻿@model CalendarViewModel
+@using IU.Plan.Web.Models
 
 @{
     ViewBag.Title = "Calendar";
-
-    var today = DateTime.Now;
-    var firstDayOfMonth = new DateTime(today.Year, today.Month, 1);
-    var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-
-    var dayNumberOfTheFirstMonthDay = firstDayOfMonth.DayOfWeek;
 
     var dayCounter = 1;
 }
 
 @helper PrintEvents(int dayCounter, DateTime lastDayOfMonth)
 {
-    var today = DateTime.Now;
-
-    if (dayCounter <= lastDayOfMonth.Day)
+    if (dayCounter <= Model.LastDayOfPeriod.Day)
     {
-        var currDay = new DateTime(today.Year, today.Month, dayCounter);
-        var evt = Model.FirstOrDefault(evnt => evnt.StartDateTime == currDay);
-        if (evt != null)
+        var currDay = new DateTime(lastDayOfMonth.Year, lastDayOfMonth.Month, dayCounter);
+        var events = Model.Events.Where(evnt => evnt.StartDateTime == currDay);
+        foreach (var evt in events)
         {
-            <div>@evt.Title</div>
+            if (evt != null)
+            {
+                <div>@evt.Title</div>
+            }
         }
     }
-
 }
 
 <h2>Calendar</h2>
 
 <ul>
-    @foreach (var evt in Model)
+    @foreach (var evt in Model.Events)
     {
         <li>
             @evt
@@ -52,17 +46,15 @@
             <th>суббота</th>
             <th>воскресенье</th>
         </tr>
-        @for (int i = 0; i < 5; i++)
+        @for (int i = 0; i < Model.RowCount; i++)
         {
             <tr>
-                @for (int j = 0; j < 7; j++)
+                @for (int j = 0; j < Model.ColCount; j++)
                 {
-
-
                     var tdClass = dayCounter == DateTime.Now.Day ? "bg-info" : "";
                     <td class=@(tdClass)>
-                        @((dayCounter <= lastDayOfMonth.Day) ? dayCounter++.ToString() : "")
-                        @PrintEvents(dayCounter, lastDayOfMonth)
+                        @((dayCounter <= Model.LastDayOfPeriod.Day) ? $"{dayCounter++}" : "")
+                        @PrintEvents(dayCounter, Model.LastDayOfPeriod)
                     </td>
                 }
             </tr>
