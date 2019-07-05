@@ -59,14 +59,15 @@
                 {
                     if (dayCounter <= Model.LastMomentOfPeriod.Day)
                     {
-                        var currDayNumberOfWeek = (int)new DateTime(Model.LastMomentOfPeriod.Year, Model.LastMomentOfPeriod.Month, dayCounter).DayOfWeek;
+                        var currDay = new DateTime(Model.LastMomentOfPeriod.Year, Model.LastMomentOfPeriod.Month, dayCounter);
+                        var currDayNumberOfWeek = (int)currDay.DayOfWeek;
                         if (currDayNumberOfWeek == 0) //sunday
                         {
                             currDayNumberOfWeek = 7;
                         }
                         if (currDayNumberOfWeek == j + 1)
                         {
-                            var tdClass = dayCounter == DateTime.Now.Day ? "bg-info" : "";
+                            var tdClass = currDay == DateTime.Now.Date ? "bg-info" : "";
                             <td class=@(tdClass)>
                                 @((dayCounter <= Model.LastMomentOfPeriod.Day) ? $"{dayCounter}" : "")
                                 @PrintEvents(dayCounter++)
