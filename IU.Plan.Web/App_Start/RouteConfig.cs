@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace IU.Plan.Web
@@ -12,6 +8,12 @@ namespace IU.Plan.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute(
+                name: "Calendar",
+                url: "{controller}/{action}/{year}/{month}",
+                defaults: new { controller = "Calendar", action = "Index" }
+            );
 
             routes.MapRoute(
                 name: "Default",

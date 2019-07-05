@@ -1,8 +1,6 @@
 ﻿using IU.Plan.Web.Models;
 using IU.PlanManager.Core.Impl;
-using IU.PlanManager.Core.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -13,8 +11,21 @@ namespace IU.Plan.Web.Controllers
         // GET: Calendar
         public ActionResult Index()
         {
+            int year = -1, month = -1;
+            var yearParam = RouteData.Values["year"];
+            var monthParam = RouteData.Values["month"];
+
+            int.TryParse(yearParam == null ? "" : yearParam.ToString(), out year);
+            int.TryParse(monthParam == null ? "" : monthParam.ToString(), out month);
+
+            if (year <= 1900 || year >= 2100 || !(month >= 1 && month <= 12))
+            {
+                year = DateTime.Now.Year;
+                month = DateTime.Now.Month;
+            }
+            var dayOfPeriod = new DateTime(year, month, 1);
+
             var eventFileStore = new EventFileStore();
-            var dayOfPeriod = DateTime.Now;
             var firstDayOfPeriod = new DateTime(dayOfPeriod.Year, dayOfPeriod.Month, 1);
             var lastMomentOfPeriod = firstDayOfPeriod.AddMonths(1).AddMilliseconds(-1);
             var events = eventFileStore.Entities.Where(evt => evt.StartDateTime >= firstDayOfPeriod && evt.StartDateTime <= lastMomentOfPeriod);

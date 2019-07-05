@@ -31,6 +31,15 @@
     }
 </ul>
 
+<div>
+    @{
+        var prevPeriod = Model.LastMomentOfPeriod.AddMonths(-1);
+        var nextPeriod = Model.LastMomentOfPeriod.AddMonths(1);
+    }
+    <a href="/Calendar/Index/@prevPeriod.Year/@prevPeriod.Month">&larr;@prevPeriod.Month.ToString(), @prevPeriod.Year</a><br />
+    <a href="/Calendar/Index/@nextPeriod.Year/@nextPeriod.Month">&nbsp;&nbsp;@nextPeriod.Month.ToString(), @nextPeriod.Year&rarr;</a>
+</div>
+
 <div class="table-responsive">
 
     <table class="table table-bordered">
