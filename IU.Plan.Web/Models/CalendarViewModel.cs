@@ -29,6 +29,6 @@ namespace IU.Plan.Web.Models
         /// <summary>
         /// Количество дней в периоде
         /// </summary>
-        public DateTime LastDayOfPeriod { get; set; }
+        public DateTime LastMomentOfPeriod { get; set; }
     }
 }

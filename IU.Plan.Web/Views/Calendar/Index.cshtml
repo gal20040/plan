@@ -7,12 +7,12 @@
     var dayCounter = 1;
 }
 
-@helper PrintEvents(int dayCounter, DateTime lastDayOfMonth)
+@helper PrintEvents(int dayCounter, DateTime lastDayOfPeriod)
 {
-    if (dayCounter <= Model.LastDayOfPeriod.Day)
+    if (dayCounter <= Model.LastMomentOfPeriod.Day)
     {
-        var currDay = new DateTime(lastDayOfMonth.Year, lastDayOfMonth.Month, dayCounter);
-        var events = Model.Events.Where(evnt => evnt.StartDateTime == currDay);
+        var currDay = new DateTime(lastDayOfPeriod.Year, lastDayOfPeriod.Month, dayCounter);
+        var events = Model.Events.Where(evnt => evnt.StartDateTime.Value.Day == currDay.Day);
         foreach (var evt in events)
         {
             if (evt != null)
@@ -53,8 +53,8 @@
                 {
                     var tdClass = dayCounter == DateTime.Now.Day ? "bg-info" : "";
                     <td class=@(tdClass)>
-                        @((dayCounter <= Model.LastDayOfPeriod.Day) ? $"{dayCounter++}" : "")
-                        @PrintEvents(dayCounter, Model.LastDayOfPeriod)
+                        @((dayCounter <= Model.LastMomentOfPeriod.Day) ? $"{dayCounter++}" : "")
+                        @PrintEvents(dayCounter, Model.LastMomentOfPeriod)
                     </td>
                 }
             </tr>
