@@ -126,6 +126,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Bindings\BrowserValueProvider.cs" />
+    <Compile Include="Bindings\BrowserValueProviderFactory.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -134,6 +136,7 @@
     <Compile Include="Models\CalendarViewModel.cs" />
     <Compile Include="Models\EventContext.cs" />
     <Compile Include="Models\EventDbInitializer.cs" />
+    <Compile Include="Models\YearMonth.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,24 +9,13 @@ namespace IU.Plan.Web.Controllers
     public class CalendarController : Controller
     {
         // GET: Calendar
-        public ActionResult Index()
+        public ActionResult Index(DateTime yearMonth, string browser)
         {
-            int year = -1, month = -1;
-            var yearParam = RouteData.Values["year"];
-            var monthParam = RouteData.Values["month"];
-
-            int.TryParse(yearParam == null ? "" : yearParam.ToString(), out year);
-            int.TryParse(monthParam == null ? "" : monthParam.ToString(), out month);
-
-            if (year <= 1900 || year >= 2100 || !(month >= 1 && month <= 12))
-            {
-                year = DateTime.Now.Year;
-                month = DateTime.Now.Month;
-            }
-            var dayOfPeriod = new DateTime(year, month, 1);
+            var year = yearMonth.Year ?? yearMonth.Year;
+            var month = yearMonth ?? yearMonth.Month;
 
             var eventFileStore = new EventFileStore();
-            var firstDayOfPeriod = new DateTime(dayOfPeriod.Year, dayOfPeriod.Month, 1);
+            var firstDayOfPeriod = new DateTime(yearMonth.Year, yearMonth.Month, 1);
             var lastMomentOfPeriod = firstDayOfPeriod.AddMonths(1).AddMilliseconds(-1);
             var events = eventFileStore.Entities.Where(evt => evt.StartDateTime >= firstDayOfPeriod && evt.StartDateTime <= lastMomentOfPeriod);
 
@@ -47,6 +36,8 @@ namespace IU.Plan.Web.Controllers
                 //dayNumberOfTheFirstPeriodDay - 1 - это нужно, чтобы учесть сдвиг,
                 //когда первое число месяца попадает на любой день кроме понедельника
             };
+
+            ViewBag.Browser = browser;
 
             return View(model);
         }
