@@ -27,8 +27,13 @@ namespace IU.Plan.Web.Models
         public int ColCount { get; set; }
 
         /// <summary>
-        /// Количество дней в периоде
+        /// Начало периода
         /// </summary>
-        public DateTime LastMomentOfPeriod { get; set; }
+        public DateTime BeginOfPeriod { get; set; }
+
+        /// <summary>
+        /// Конец периода
+        /// </summary>
+        public DateTime EndOfPeriod { get; set; }
     }
 }
