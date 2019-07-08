@@ -10,7 +10,7 @@
 
 @helper PrintEvents(int dayCounter)
 {
-    var currDay = new DateTime(Model.LastMomentOfPeriod.Year, Model.LastMomentOfPeriod.Month, dayCounter);
+    var currDay = new DateTime(Model.BeginOfPeriod.Year, Model.BeginOfPeriod.Month, dayCounter);
     var events = Model.Events.Where(evnt => evnt.StartDateTime.Value.Day == currDay.Day);
     foreach (var evt in events)
     {
@@ -51,8 +51,8 @@
 
 <div>
     @{
-        var prevPeriod = Model.LastMomentOfPeriod.AddMonths(-1);
-        var nextPeriod = Model.LastMomentOfPeriod.AddMonths(1);
+        var prevPeriod = Model.BeginOfPeriod.AddMonths(-1);
+        var nextPeriod = Model.BeginOfPeriod.AddMonths(1);
     }
     <a href="/Calendar/Index/@prevPeriod.Year/@prevPeriod.Month">&larr;@prevPeriod.Month.ToString(), @prevPeriod.Year</a><br />
     <a href="/Calendar/Index/@nextPeriod.Year/@nextPeriod.Month">&nbsp;&nbsp;@nextPeriod.Month.ToString(), @nextPeriod.Year&rarr;</a>
@@ -75,9 +75,9 @@
             <tr>
                 @for (int j = 0; j < Model.ColCount; j++)
                 {
-                    if (dayCounter <= Model.LastMomentOfPeriod.Day)
+                    if (dayCounter <= Model.EndOfPeriod.Day)
                     {
-                        var currDay = new DateTime(Model.LastMomentOfPeriod.Year, Model.LastMomentOfPeriod.Month, dayCounter);
+                        var currDay = new DateTime(Model.BeginOfPeriod.Year, Model.BeginOfPeriod.Month, dayCounter);
                         var currDayNumberOfWeek = (int)currDay.DayOfWeek;
                         if (currDayNumberOfWeek == 0) //sunday
                         {
@@ -87,7 +87,7 @@
                         {
                             var tdClass = currDay == DateTime.Now.Date ? "bg-info" : "";
                             <td class=@(tdClass)>
-                                @((dayCounter <= Model.LastMomentOfPeriod.Day) ? $"{dayCounter}" : "")
+                                @((dayCounter <= Model.EndOfPeriod.Day) ? $"{dayCounter}" : "")
                                 @PrintEvents(dayCounter++)
                             </td>
                             continue;
