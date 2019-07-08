@@ -1,5 +1,4 @@
 ﻿@model CalendarViewModel
-@using System.Web.UI.WebControls
 @using IU.Plan.Web.Models
 @using IU.Plan.Web.Extensions;
 
@@ -41,22 +40,18 @@
 
 <h2>Calendar</h2>
 
-<ul>
-    @foreach (var evt in Model.Events)
-    {
-        <li>
-            @evt
-        </li>
-    }
-</ul>
-
 <div>
     @{
         var prevPeriod = Model.BeginOfPeriod.AddMonths(-1);
         var nextPeriod = Model.BeginOfPeriod.AddMonths(1);
     }
-    <a href="/Calendar/Index/@prevPeriod.Year/@prevPeriod.Month">&larr;@prevPeriod.Month.ToString(), @prevPeriod.Year</a><br />
-    <a href="/Calendar/Index/@nextPeriod.Year/@nextPeriod.Month">&nbsp;&nbsp;@nextPeriod.Month.ToString(), @nextPeriod.Year&rarr;</a>
+    <table class="table table-bordered">
+        <tr>
+            <td align="left"><a href="/Calendar/Index/@prevPeriod.Year/@prevPeriod.Month">&larr;@prevPeriod.Month.ToString(), @prevPeriod.Year</a></td>
+            <td align="center"><a href="/Calendar/Index/">Сегодня</a></td>
+            <td align="right"><a href="/Calendar/Index/@nextPeriod.Year/@nextPeriod.Month">@nextPeriod.Month.ToString(), @nextPeriod.Year&rarr;</a></td>
+        </tr>
+    </table>
 </div>
 
 <div class="table-responsive">
@@ -103,4 +98,11 @@
 
 </div>
 
-@ViewBag.Browser
+<ul>
+    @foreach (var evt in Model.Events)
+    {
+        <li>
+            @evt
+        </li>
+    }
+</ul>
