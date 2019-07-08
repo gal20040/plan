@@ -19,8 +19,9 @@
             {
                 <li class="list-group-item list-group-item-info">
                     <div>
-                        @Html.ActionLink(evt.Title, "Details", "Event", new { uid = evt.Guid }, null)
-                        <button onclick="getView('@evt.Guid')">click</button>
+                        @evt.Title
+                        <button onclick="getViewModal('@evt.Guid')">Смотреть</button>
+                        <button onclick="getEditModal('@evt.Guid')">Редактировать</button>
                     </div>
                 </li>
             }
@@ -29,8 +30,8 @@
 }
 
 <script type="text/javascript">
-    function getView(uid) {
-        //console.log(uid);
+    function getViewModal(uid) {
+        console.log(uid);
         $.ajax({
             url: '/Event/MiniDetails?uid=' + uid,
             success: function (data) {
@@ -44,8 +45,26 @@
                         }
                     }
                 });
+                console.log(data);
+            }
+        });
+    }
+    function getEditModal(uid) {
+        console.log(uid);
+        $.ajax({
+            url: '/Event/Edit?uid=' + uid,
+            success: function (data) {
+                $('#EditResult').html(data);
 
-                //console.log(data);
+                $("#EditResult").dialog({
+                    modal: true,
+                    buttons: {
+                        Ok: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+                console.log(data);
             }
         });
     }
@@ -109,6 +128,9 @@
     </table>
 
 </div>
+
+<div id="MiniDetailsResult"></div>
+<div id="EditResult"></div>
 
 <ul>
     @foreach (var evt in Model.Events)

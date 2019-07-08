@@ -24,5 +24,12 @@ namespace IU.Plan.Web.Controllers
 
             return PartialView("Details", evnt);
         }
+
+        public PartialViewResult Edit(Guid uid)
+        {
+            var evnt = store.Get(uid);
+
+            return PartialView("Edit", evnt);
+        }
     }
 }
