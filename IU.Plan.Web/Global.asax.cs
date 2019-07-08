@@ -1,5 +1,4 @@
-﻿using IU.Plan.Web.Bindings;
-using IU.Plan.Web.Models;
+﻿using IU.Plan.Web.Models;
 using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Optimization;
