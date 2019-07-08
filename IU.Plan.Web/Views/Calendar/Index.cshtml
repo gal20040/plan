@@ -1,6 +1,7 @@
 ﻿@model CalendarViewModel
 @using System.Web.UI.WebControls
 @using IU.Plan.Web.Models
+@using IU.Plan.Web.Extensions;
 
 @{
     ViewBag.Title = "Calendar";
@@ -78,12 +79,8 @@
                     if (dayCounter <= Model.EndOfPeriod.Day)
                     {
                         var currDay = new DateTime(Model.BeginOfPeriod.Year, Model.BeginOfPeriod.Month, dayCounter);
-                        var currDayNumberOfWeek = (int)currDay.DayOfWeek;
-                        if (currDayNumberOfWeek == 0) //sunday
-                        {
-                            currDayNumberOfWeek = 7;
-                        }
-                        if (currDayNumberOfWeek == j + 1)
+
+                        if (currDay.DayOfWeek.ToInt() == j)
                         {
                             var tdClass = currDay == DateTime.Now.Date ? "bg-info" : "";
                             <td class=@(tdClass)>

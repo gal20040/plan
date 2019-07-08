@@ -12,7 +12,7 @@ namespace IU.Plan.Web.Extensions
         /// <returns></returns>
         public static int ToInt(this DayOfWeek dayOfWeek)
         {
-            return dayOfWeek == 0 ? 7 : (int)dayOfWeek - 1;
+            return dayOfWeek == 0 ? 6 : (int)dayOfWeek - 1;
         }
     }
 }
