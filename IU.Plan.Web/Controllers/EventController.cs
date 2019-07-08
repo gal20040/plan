@@ -1,8 +1,8 @@
-﻿using System;
-using System.Web.Mvc;
-using IU.PlanManager.Core.Impl;
+﻿using IU.PlanManager.Core.Impl;
 using IU.PlanManager.Core.Interfaces;
 using IU.PlanManager.Core.Models;
+using System;
+using System.Web.Mvc;
 
 namespace IU.Plan.Web.Controllers
 {
@@ -18,7 +18,7 @@ namespace IU.Plan.Web.Controllers
             return View(evnt);
         }
 
-        public PartialViewResult View(Guid uid)
+        public PartialViewResult MiniDetails(Guid uid)
         {
             var evnt = store.Get(uid);
 

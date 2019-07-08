@@ -30,12 +30,22 @@
 
 <script type="text/javascript">
     function getView(uid) {
-        console.log(uid);
+        //console.log(uid);
         $.ajax({
-            url: '/Event/View?uid=' + uid,
+            url: '/Event/MiniDetails?uid=' + uid,
             success: function (data) {
                 $('#MiniDetailsResult').html(data);
-                console.log(data);
+
+                $("#MiniDetailsResult").dialog({
+                    modal: true,
+                    buttons: {
+                        Ok: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+
+                //console.log(data);
             }
         });
     }
