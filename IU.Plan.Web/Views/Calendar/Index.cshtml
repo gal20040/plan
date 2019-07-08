@@ -51,20 +51,23 @@
     }
 </script>
 
-<h2>Calendar</h2>
 
 <div>
     @{
         var prevPeriod = Model.BeginOfPeriod.AddMonths(-1);
         var nextPeriod = Model.BeginOfPeriod.AddMonths(1);
+        var today = DateTime.Today;
     }
-    <table class="table table-bordered">
-        <tr>
-            <td align="left"><a href="/Calendar/Index/@prevPeriod.Year/@prevPeriod.Month">&larr;@prevPeriod.Month.ToString(), @prevPeriod.Year</a></td>
-            <td align="center"><a href="/Calendar/Index/">Сегодня</a></td>
-            <td align="right"><a href="/Calendar/Index/@nextPeriod.Year/@nextPeriod.Month">@nextPeriod.Month.ToString(), @nextPeriod.Year&rarr;</a></td>
-        </tr>
-    </table>
+
+    <h2>Календарь для @Model.BeginOfPeriod.Month, @Model.BeginOfPeriod.Year</h2>
+    
+    <nav aria-label="...">
+        <ul class="pager">
+            <li class="previous"><a href="@Url.Action("Index", new { year = prevPeriod.Year, month = prevPeriod.Month })"><span aria-hidden="true">&larr;</span> Туда</a></li>
+            <li class="today"><a href="@Url.Action("Index", new { year = today.Year, month = today.Month })">Сегодня</a></li>
+            <li class="next"><a href="@Url.Action("Index", new { year = nextPeriod.Year, month = nextPeriod.Month })">Сюда <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>
 
 <div class="table-responsive">
@@ -104,10 +107,6 @@
             </tr>
         }
     </table>
-
-</div>
-
-<div id="MiniDetailsResult">
 
 </div>
 
