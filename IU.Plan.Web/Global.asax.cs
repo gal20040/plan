@@ -1,4 +1,5 @@
-﻿using IU.Plan.Web.Models;
+﻿using IU.Plan.Web.Bindings;
+using IU.Plan.Web.Models;
 using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -10,7 +11,7 @@ namespace IU.Plan.Web
     {
         protected void Application_Start()
         {
-            //ValueProviderFactories.Factories.Add(new BrowserValueProviderFactory());
+            ValueProviderFactories.Factories.Add(new BrowserValueProviderFactory());
 
             Database.SetInitializer(new EventDbInitializer());
 

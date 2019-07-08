@@ -1,37 +1,49 @@
-﻿//using System;
-//using System.Globalization;
-//using System.Web;
-//using System.Web.Mvc;
+﻿using System;
+using System.Globalization;
+using System.Web.Mvc;
 
-//namespace IU.Plan.Web.Bindings
-//{
-//    public class BrowserValueProvider : IValueProvider
-//    {
-//        public bool ContainsPrefix(string prefix)
-//        {
-//            return string.Compare("yearmonthday", prefix, true) == 0;
-//        }
+namespace IU.Plan.Web.Bindings
+{
+    public class BrowserValueProvider : IValueProvider
+    {
+        private ControllerContext ControllerContext { get; set; }
 
-//        public ValueProviderResult GetValue(string key)
-//        {
-//            var yearStr = HttpContext.Current.Request.Params["year"];
-//            var monthStr = HttpContext.Current.Request.Params["month"];
+        public BrowserValueProvider(ControllerContext controllerContext)
+        {
+            ControllerContext = controllerContext;
+        }
 
-//            if (!int.TryParse(yearStr, out int year))
-//            {
-//                year = DateTime.Today.Year;
-//            }
+        public bool ContainsPrefix(string prefix)
+        {
+            return string.Compare("yearmonthday", prefix, true) == 0;
+        }
 
-//            if (!int.TryParse(monthStr, out int month))
-//            {
-//                month = DateTime.Today.Month;
-//            }
+        public ValueProviderResult GetValue(string key)
+        {
+            var yearStr = ControllerContext.RequestContext.RouteData.Values["year"];
+            var monthStr = ControllerContext.RequestContext.RouteData.Values["month"];
+            var dayStr = ControllerContext.RequestContext.RouteData.Values["day"];
 
-//            var value = new DateTime(year, month, 1);
+            if (yearStr == null || !int.TryParse(yearStr.ToString(), out int year))
+            {
+                year = DateTime.Today.Year;
+            }
 
-//            return ContainsPrefix(key)
-//                ? new ValueProviderResult(value, null, CultureInfo.InvariantCulture)
-//                : null;
-//        }
-//    }
-//}
+            if (monthStr == null || !int.TryParse(monthStr.ToString(), out int month))
+            {
+                month = DateTime.Today.Month;
+            }
+
+            if (dayStr == null || !int.TryParse(dayStr.ToString(), out int day))
+            {
+                day = DateTime.Today.Day;
+            }
+
+            var value = new DateTime(year, month, day);
+
+            return ContainsPrefix(key)
+                ? new ValueProviderResult(value, null, CultureInfo.InvariantCulture)
+                : null;
+        }
+    }
+}
