@@ -1,4 +1,5 @@
 ﻿@model CalendarViewModel
+@using System.Web.UI.WebControls
 @using IU.Plan.Web.Models
 
 @{
@@ -15,10 +16,27 @@
     {
         if (evt != null)
         {
-            <div>@evt.Title</div>
+            <div>
+                @Html.ActionLink(evt.Title, "Details", "Event", new { uid = evt.Guid }, null)
+
+                <button onclick="getView('@evt.Guid')">click</button>
+            </div>
         }
     }
 }
+
+<script type="text/javascript">
+    function getView(uid) {
+        console.log(uid);
+        $.ajax({
+            url: '/Event/View?uid=' + uid,
+            success: function (data) {
+                $('#MiniDetailsResult').html(data);
+                console.log(data);
+            }
+        });
+    }
+</script>
 
 <h2>Calendar</h2>
 
@@ -81,6 +99,10 @@
             </tr>
         }
     </table>
+
+</div>
+
+<div id="MiniDetailsResult">
 
 </div>
 
