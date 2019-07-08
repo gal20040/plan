@@ -12,17 +12,20 @@
 {
     var currDay = new DateTime(Model.BeginOfPeriod.Year, Model.BeginOfPeriod.Month, dayCounter);
     var events = Model.Events.Where(evnt => evnt.StartDateTime.Value.Day == currDay.Day);
-    foreach (var evt in events)
-    {
-        if (evt != null)
+    <ul class="list-group">
+        @foreach (var evt in events)
         {
-            <div>
-                @Html.ActionLink(evt.Title, "Details", "Event", new { uid = evt.Guid }, null)
-
-                <button onclick="getView('@evt.Guid')">click</button>
-            </div>
+            if (evt != null)
+            {
+                <li class="list-group-item list-group-item-info">
+                    <div>
+                        @Html.ActionLink(evt.Title, "Details", "Event", new { uid = evt.Guid }, null)
+                        <button onclick="getView('@evt.Guid')">click</button>
+                    </div>
+                </li>
+            }
         }
-    }
+    </ul>
 }
 
 <script type="text/javascript">
