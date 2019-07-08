@@ -20,7 +20,10 @@ namespace IU.Plan.Web.Controllers
             var beginOfPeriod = new DateTime(yearMonthDay.Year, yearMonthDay.Month, 1);
             var endOfPeriod = beginOfPeriod.AddMonths(1).AddMilliseconds(-1);
             var events = eventFileStore.Entities
-                .Where(evt => evt.StartDateTime != null && evt.StartDateTime.Value.Month == beginOfPeriod.Month);
+                .Where(evt =>
+                    evt.StartDateTime != null
+                    && evt.StartDateTime.Value.Year == beginOfPeriod.Year
+                    && evt.StartDateTime.Value.Month == beginOfPeriod.Month);
 
             var colCount = 7;
 
