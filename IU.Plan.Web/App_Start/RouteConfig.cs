@@ -12,7 +12,7 @@ namespace IU.Plan.Web
             routes.MapRoute(
                 name: "Calendar",
                 url: "{controller}/{action}/{year}/{month}",
-                defaults: new { controller = "Calendar", action = "Index" }
+                defaults: new { controller = "Calendar", action = "Index", year = UrlParameter.Optional, month = UrlParameter.Optional }
             );
 
             routes.MapRoute(
