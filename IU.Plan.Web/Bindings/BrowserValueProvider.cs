@@ -18,26 +18,34 @@ namespace IU.Plan.Web.Bindings
             return string.Compare("yearmonthday", prefix, true) == 0;
         }
 
+        private int? GetIntFromRequest(string name)
+        {
+            var requestItem = ControllerContext.RequestContext.RouteData.Values[name];
+            if (requestItem == null)
+            {
+                requestItem = ControllerContext.HttpContext.Request.Params[name];
+            }
+
+            if (requestItem == null)
+            {
+                return null;
+            }
+
+            var requestItemStr = requestItem.ToString();
+
+            if (int.TryParse(requestItemStr, out int result))
+            {
+                return result;
+            }
+            return null;
+        }
+
+
         public ValueProviderResult GetValue(string key)
         {
-            var yearStr = ControllerContext.RequestContext.RouteData.Values["year"];
-            var monthStr = ControllerContext.RequestContext.RouteData.Values["month"];
-            var dayStr = ControllerContext.RequestContext.RouteData.Values["day"];
-
-            if (yearStr == null || !int.TryParse(yearStr.ToString(), out int year))
-            {
-                year = DateTime.Today.Year;
-            }
-
-            if (monthStr == null || !int.TryParse(monthStr.ToString(), out int month))
-            {
-                month = DateTime.Today.Month;
-            }
-
-            if (dayStr == null || !int.TryParse(dayStr.ToString(), out int day))
-            {
-                day = DateTime.Today.Day;
-            }
+            var year = GetIntFromRequest("year") ?? DateTime.Today.Year;
+            var month = GetIntFromRequest("month") ?? DateTime.Today.Month;
+            var day = GetIntFromRequest("day") ?? 1;
 
             var value = new DateTime(year, month, day);
 

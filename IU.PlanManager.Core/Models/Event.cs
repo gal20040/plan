@@ -7,10 +7,7 @@ namespace IU.PlanManager.Core.Models
     [Serializable]
     public class Event : IEntity
     {
-        private Event()
-        {
-            Guid = Guid.NewGuid();
-        }
+        public Event() { }
 
         /// <summary>
         /// ctor

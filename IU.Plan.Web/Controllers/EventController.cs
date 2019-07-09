@@ -1,4 +1,5 @@
-﻿using IU.PlanManager.Core.Impl;
+﻿using IU.Plan.Web.Models;
+using IU.PlanManager.Core.Impl;
 using IU.PlanManager.Core.Interfaces;
 using IU.PlanManager.Core.Models;
 using System;
@@ -25,11 +26,40 @@ namespace IU.Plan.Web.Controllers
             return PartialView("Details", evnt);
         }
 
+        // GET: Event
         public PartialViewResult Edit(Guid uid)
         {
             var evnt = store.Get(uid);
 
-            return PartialView("Edit", evnt);
+            var model = new EventEditModel(evnt);
+
+            return PartialView("EventEdit", model);
+        }
+
+        public PartialViewResult EventEdit(Guid uid)
+        {
+
+            return PartialView("EventEdit");
+        }
+
+        [HttpPost]
+        public PartialViewResult Save(EventEditModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var evnt = model.GetEvent();
+                try
+                {
+                    store.UpdateByGuid(evnt);
+                    ViewBag.SaveResult = "Успешно сохранено";
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+
+            return PartialView("EventEdit", model);
         }
     }
 }

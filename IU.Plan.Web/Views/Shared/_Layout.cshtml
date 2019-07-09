@@ -31,6 +31,8 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
+        <div id="notify"></div>
+
         <footer>
             <p>Планировщик - gal20040 &copy; @DateTime.Now.Year</p>
         </footer>
@@ -41,5 +43,23 @@
     @RenderSection("scripts", required: false)
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setInterval(checkEvents, 3 * 1000);
+        });
+
+        function checkEvents() {
+            $.ajax({
+                url: '/Event/MiniDetails?uid=2fcd5f32-ee24-4b82-b584-7bd65e8a46a7',
+                type: 'get',
+                success: function (data) {
+                    $('#notify').html(data);
+                }
+            });
+        }
+
+    </script>
+
 </body>
 </html>

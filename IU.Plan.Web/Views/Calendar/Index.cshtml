@@ -8,30 +8,36 @@
     var dayCounter = 1;
 }
 
+<style>
+    .overtext {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 80px;
+    }
+</style>
+
 @helper PrintEvents(int dayCounter)
 {
     var currDay = new DateTime(Model.BeginOfPeriod.Year, Model.BeginOfPeriod.Month, dayCounter);
     var events = Model.Events.Where(evnt => evnt.StartDateTime.Value.Day == currDay.Day);
-    <ul class="list-group">
+    <div>
         @foreach (var evt in events)
         {
             if (evt != null)
             {
-                <li class="list-group-item list-group-item-info">
-                    <div>
+                <div>
+                    <a href="#" class="btn btn-primary btn-xs overtext" title="@evt.Title" onclick="getDetails('@evt.Guid')">
                         @evt.Title
-                        <button onclick="getViewModal('@evt.Guid')">Смотреть</button>
-                        <button onclick="getEditModal('@evt.Guid')">Редактировать</button>
-                    </div>
-                </li>
+                    </a>
+                </div>
             }
         }
-    </ul>
+    </div>
 }
 
 <script type="text/javascript">
-    function getViewModal(uid) {
-        console.log(uid);
+    function getDetails(uid) {
+        //console.log(uid);
         $.ajax({
             url: '/Event/MiniDetails?uid=' + uid,
             success: function (data) {
@@ -41,95 +47,121 @@
                     width: 'auto',
                     modal: true,
                     buttons: {
+                        "Редактировать": function () {
+                            openEditPopup(uid);
+                        },
                         Ok: function () {
                             $(this).dialog("close");
                         }
                     }
                 });
-                console.log(data);
+                //console.log(data);
             }
         });
     }
-    function getEditModal(uid) {
-        console.log(uid);
+
+    function saveEvent() {
+        $.ajax({
+            url: '/Event/Save',
+            type: 'post',
+            data: $('form#eventSaveForm').serialize(),
+            success: function (data) {
+                $('#EditPopup').html(data);
+            }
+        });
+
+    }
+
+    function openEditPopup(uid) {
         $.ajax({
             url: '/Event/Edit?uid=' + uid,
             success: function (data) {
-                $('#EditResult').html(data);
-
-                $("#EditResult").dialog({
-                    width: 'auto',
+                $('#EditPopup').html(data);
+                $("#EditPopup").dialog({
                     modal: true,
+                    width: 'auto',
                     buttons: {
-                        Ok: function () {
+                        "Сохранить": function () {
+                            saveEvent();
+                            //$(this).dialog("close");
+                        },
+                        Cancel: function () {
                             $(this).dialog("close");
                         }
+                    },
+                    close: function () {
+                        //form[0].reset();
                     }
                 });
-                console.log(data);
             }
         });
     }
+
 </script>
 
+@{
+    var prevPeriod = Model.BeginOfPeriod.AddMonths(-1);
+    var nextPeriod = Model.BeginOfPeriod.AddMonths(1);
+    var today = DateTime.Today;
+}
+
+<h2>Календарь для @Model.BeginOfPeriod.ToString("MMMM"), @Model.BeginOfPeriod.Year</h2>
 
 <div>
-    @{
-        var prevPeriod = Model.BeginOfPeriod.AddMonths(-1);
-        var nextPeriod = Model.BeginOfPeriod.AddMonths(1);
-        var today = DateTime.Today;
-    }
-
-    <h2>Календарь для @Model.BeginOfPeriod.Month, @Model.BeginOfPeriod.Year</h2>
-    
-    <nav aria-label="...">
-        <ul class="pager">
-            <li class="previous"><a href="@Url.Action("Index", new { year = prevPeriod.Year, month = prevPeriod.Month })"><span aria-hidden="true">&larr;</span> Туда</a></li>
-            <li class="today"><a href="@Url.Action("Index", new { year = today.Year, month = today.Month })">Сегодня</a></li>
-            <li class="next"><a href="@Url.Action("Index", new { year = nextPeriod.Year, month = nextPeriod.Month })">Сюда <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav>
+    <div>
+        <nav aria-label="...">
+            <ul class="pager">
+                <li class="previous"><a href="@Url.Action("Index", new { year = prevPeriod.Year, month = prevPeriod.Month })"><span aria-hidden="true">&larr;</span> Туда</a></li>
+                <li class="today"><a href="@Url.Action("Index", new { year = today.Year, month = today.Month })">Сегодня</a></li>
+                <li class="next"><a href="@Url.Action("Index", new { year = nextPeriod.Year, month = nextPeriod.Month })">Сюда <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+    </div>
 </div>
 
-<div class="table-responsive">
-
-    <table class="table table-bordered">
-        <tr>
-            <th>понедельник</th>
-            <th>вторник</th>
-            <th>среда</th>
-            <th>четверг</th>
-            <th>пятница</th>
-            <th>суббота</th>
-            <th>воскресенье</th>
-        </tr>
-        @for (int i = 0; i < Model.RowCount; i++)
-        {
-            <tr>
-                @for (int j = 0; j < Model.ColCount; j++)
+<div>
+    <div>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th style="width:14%">ПН</th>
+                    <th style="width:14%">ВТ</th>
+                    <th style="width:14%">СР</th>
+                    <th style="width:14%">ЧТ</th>
+                    <th style="width:14%">ПТ</th>
+                    <th style="width:15%">СБ</th>
+                    <th style="width:15%">ВС</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.RowCount; i++)
                 {
-                    if (dayCounter <= Model.EndOfPeriod.Day)
-                    {
-                        var currDay = new DateTime(Model.BeginOfPeriod.Year, Model.BeginOfPeriod.Month, dayCounter);
-
-                        if (currDay.DayOfWeek.ToInt() == j)
+                    <tr>
+                        @for (int j = 0; j < Model.ColCount; j++)
                         {
-                            var tdClass = currDay == DateTime.Now.Date ? "bg-info" : "";
-                            <td class=@(tdClass)>
-                                @((dayCounter <= Model.EndOfPeriod.Day) ? $"{dayCounter}" : "")
-                                @PrintEvents(dayCounter++)
-                            </td>
-                            continue;
+                            if (dayCounter <= Model.EndOfPeriod.Day)
+                            {
+                                var currDay = new DateTime(Model.BeginOfPeriod.Year, Model.BeginOfPeriod.Month, dayCounter);
+
+                                if (currDay.DayOfWeek.ToInt() == j)
+                                {
+                                    var tdClass = currDay == DateTime.Now.Date ? "bg-info" : "";
+                                    <td class=@(tdClass)>
+                                        @((dayCounter <= Model.EndOfPeriod.Day) ? $"{dayCounter}" : "")
+                                        @PrintEvents(dayCounter++)
+                                    </td>
+                                    continue;
+                                }
+                            }
+
+                            <td></td>
                         }
-                    }
-
-                    <td></td>
+                    </tr>
                 }
-            </tr>
-        }
-    </table>
-
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div id="MiniDetailsResult"></div>
-<div id="EditResult"></div>
+<div id="EditPopup"></div> 

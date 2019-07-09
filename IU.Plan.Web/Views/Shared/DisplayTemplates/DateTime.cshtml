@@ -1,0 +1,16 @@
+﻿@model DateTime?
+
+@{
+    var inputName = Html.ViewData.TemplateInfo.GetFullHtmlFieldName("");
+
+    var prefix = inputName.ToLower().Contains("start")
+        ? "с"
+        : (inputName.ToLower().Contains("end") ? "по" : "");
+}
+
+@if (Model.HasValue)
+{
+    <div class="alert alert-info" role="alert">
+        @prefix @Model.Value.ToString("yyyy-MM-dd")
+    </div>
+}
