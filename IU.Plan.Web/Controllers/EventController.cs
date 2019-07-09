@@ -61,5 +61,25 @@ namespace IU.Plan.Web.Controllers
 
             return PartialView("EventEdit", model);
         }
+
+        [HttpPost]
+        public PartialViewResult Delete(Guid uid)
+        {
+            //if (ModelState.IsValid)
+            //{
+            //    var evnt = model.GetEvent();
+                try
+                {
+                    store.Delete(uid);
+                    ViewBag.DeleteResult = "Успешно удалено";
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            //}
+
+            return PartialView("Delete");
+        }
     }
 }

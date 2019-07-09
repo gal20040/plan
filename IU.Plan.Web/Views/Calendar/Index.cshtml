@@ -47,6 +47,9 @@
                     width: 'auto',
                     modal: true,
                     buttons: {
+                        "Удалить": function () {
+                            openDeletePopup(uid);
+                        },
                         "Редактировать": function () {
                             openEditPopup(uid);
                         },
@@ -90,6 +93,25 @@
                         }
                     },
                     close: function () {
+                        window.location.reload();
+                        //form[0].reset();
+                    }
+                });
+            }
+        });
+    }
+
+    function openDeletePopup(uid) {
+        $.ajax({
+            url: '/Event/Delete?uid=' + uid,
+            method: 'POST',
+            success: function (data) {
+                $('#DeletePopup').html(data);
+                $("#DeletePopup").dialog({
+                    modal: true,
+                    width: 'auto',
+                    close: function () {
+                        window.location.reload();
                         //form[0].reset();
                     }
                 });
@@ -164,4 +186,5 @@
 </div>
 
 <div id="MiniDetailsResult"></div>
-<div id="EditPopup"></div> 
+<div id="EditPopup"></div>
+<div id="DeletePopup"></div>
