@@ -1,45 +1,45 @@
-﻿using IU.Plan.Web.Models;
-using IU.PlanManager.Core.Models;
-using System.Collections.Generic;
-using System.Web.Mvc;
+﻿//using IU.Plan.Web.Models;
+//using IU.PlanManager.Core.Models;
+//using System.Collections.Generic;
+//using System.Web.Mvc;
 
-namespace IU.Plan.Web.Controllers
-{
-    public class HomeController : Controller
-    {
-        // создаем контекст данных
-        EventContext db = new EventContext();
+//namespace IU.Plan.Web.Controllers
+//{
+//    public class HomeController : Controller
+//    {
+//        // создаем контекст данных
+//        EventContext db = new EventContext();
 
-        public ActionResult Index()
-        {
-            return View();
-        }
+//        public ActionResult Index()
+//        {
+//            return View();
+//        }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+//        public ActionResult About()
+//        {
+//            ViewBag.Message = "Your application description page.";
 
-            return View();
-        }
+//            return View();
+//        }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+//        public ActionResult Contact()
+//        {
+//            ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
+//            return View();
+//        }
 
-        public ActionResult Calendar()
-        {
-            ViewBag.Message = "Calendar page";
+//        public ActionResult Calendar()
+//        {
+//            ViewBag.Message = "Calendar page";
 
-            // получаем из бд все объекты Event
-            IEnumerable<Event> events = db.Events;
-            // передаем все объекты в динамическое свойство Events в ViewBag
-            ViewBag.Events = events;
-            // возвращаем представление
+//            // получаем из бд все объекты Event
+//            IEnumerable<Event> events = db.Events;
+//            // передаем все объекты в динамическое свойство Events в ViewBag
+//            ViewBag.Events = events;
+//            // возвращаем представление
 
-            return View();
-        }
-    }
-}
+//            return View();
+//        }
+//    }
+//}
