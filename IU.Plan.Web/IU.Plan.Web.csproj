@@ -141,16 +141,23 @@
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Extensions\Activity.cs" />
     <Compile Include="Extensions\DayOfWeekExtension.cs" />
+    <Compile Include="Extensions\Meeting.cs" />
+    <Compile Include="Extensions\Task.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mappings\ActivityMap.cs" />
+    <Compile Include="Mappings\EventMap.cs" />
+    <Compile Include="Mappings\MoneyMap.cs" />
     <Compile Include="Models\CalendarViewModel.cs" />
     <Compile Include="Models\EventContext.cs" />
     <Compile Include="Models\EventDbInitializer.cs" />
     <Compile Include="Models\EventEditModel.cs" />
     <Compile Include="Models\YearMonth.cs" />
     <Compile Include="Modules\TimerModule.cs" />
+    <Compile Include="NHibernate\NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +209,8 @@
     <Content Include="Views\Event\EventEdit.cshtml" />
     <Content Include="Views\Event\Save.cshtml" />
     <Content Include="Views\Event\Delete.cshtml" />
+    <Content Include="Views\Event\Activity.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Event.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

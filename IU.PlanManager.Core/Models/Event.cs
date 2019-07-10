@@ -74,32 +74,32 @@ namespace IU.PlanManager.Core.Models
         /// <inheritdoc/>
         /// </summary>
         [Key]
-        public Guid Guid { get; set; }
+        public virtual Guid Guid { get; set; }
 
         /// <summary>
         /// Заголовок
         /// </summary>
-        public string Title { get; set; }
+        public virtual string Title { get; set; }
 
         /// <summary>
         /// Описание
         /// </summary>
-        public string Description { get; set; }
+        public virtual string Description { get; set; }
 
         /// <summary>
         /// Начало события
         /// </summary>
-        public DateTime? StartDateTime { get; set; }
+        public virtual DateTime? StartDateTime { get; set; }
 
         /// <summary>
         /// Окончание события
         /// </summary>
-        public DateTime? EndDateTime { get; set; }
+        public virtual DateTime? EndDateTime { get; set; }
 
         /// <summary>
         /// Место
         /// </summary>
-        public string Place { get; set; }
+        public virtual string Place { get; set; }
 
         /// <summary>
         /// Место
