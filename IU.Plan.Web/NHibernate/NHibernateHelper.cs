@@ -20,7 +20,7 @@ namespace IU.Plan.Web.NHibernate
                 .BuildConfiguration();
 
             var exporter = new SchemaExport(configuration);
-            exporter.Execute(true, true, false);
+            exporter.Execute(true, false, false);
 
             _sessionFactory = configuration.BuildSessionFactory();
         }
@@ -28,9 +28,8 @@ namespace IU.Plan.Web.NHibernate
         public static ISession GetCurrentSession()
         {
             var context = HttpContext.Current;
-            var currentSession = context.Items[CurrentSessionKey] as ISession;
 
-            if (currentSession == null)
+            if (!(context.Items[CurrentSessionKey] is ISession currentSession))
             {
                 currentSession = _sessionFactory.OpenSession();
                 context.Items[CurrentSessionKey] = currentSession;
@@ -42,9 +41,8 @@ namespace IU.Plan.Web.NHibernate
         public static void CloseSession()
         {
             var context = HttpContext.Current;
-            var currentSession = context.Items[CurrentSessionKey] as ISession;
 
-            if (currentSession == null)
+            if (!(context.Items[CurrentSessionKey] is ISession currentSession))
             {
                 // No current session
                 return;

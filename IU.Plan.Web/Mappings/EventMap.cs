@@ -1,5 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
-using IU.PlanManager.Core.Models;
+using IU.Plan.Core.Models;
 
 namespace IU.Plan.Web.Mappings
 {
@@ -9,10 +9,11 @@ namespace IU.Plan.Web.Mappings
         {
             Id(self => self.Guid);
             Map(self => self.Title);
-            Map(self => self.Description);
-            Map(self => self.StartDateTime);
-            Map(self => self.EndDateTime);
+            Map(self => self.Description).Length(4001);
+            Map(self => self.StartDateTime).Nullable();
+            Map(self => self.EndDateTime).Nullable();
             Map(self => self.Place);
+            Map(evt => evt.LifeStatus);
         }
     }
 }

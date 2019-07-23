@@ -1,16 +1,15 @@
-﻿using IU.PlanManager.Core.Models;
+﻿using IU.Plan.Core.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace IU.PlanManager.Core.Impl
+namespace IU.Plan.Core.Impl
 {
     public class UserFileStore : BaseFileStore<User>, IUserStore
     {
         /// <inheritdoc/>
-        public IEnumerable<User> GetByName(string userName)
+        public User GetByName(string userName)
         {
-            return Entities.Where(user => user.Status != Status.Deleted && user.Name.Contains(userName));
+            return Entities.FirstOrDefault(user => user.Status != UserStatus.Deleted && user.Name.Contains(userName));
         }
 
         /// <inheritdoc/>
@@ -19,7 +18,7 @@ namespace IU.PlanManager.Core.Impl
             var user = Get(guid);
             if (user != null)
             {
-                user.Status = Status.Deleted;
+                user.Status = UserStatus.Deleted;
                 UpdateByGuid(user);
                 return true;
             }
@@ -38,7 +37,7 @@ namespace IU.PlanManager.Core.Impl
         public override User Get(Guid guid)
         {
             var user = base.Get(guid);
-            if (user != null && user.Status != Status.Deleted)
+            if (user != null && user.Status != UserStatus.Deleted)
             {
                 return user;
             }

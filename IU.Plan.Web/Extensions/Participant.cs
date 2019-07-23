@@ -1,0 +1,25 @@
+﻿using IU.Plan.Core.Models;
+using System.Collections.Generic;
+
+namespace IU.Plan.Web.Extensions
+{
+    /// <summary>
+    /// Пользователь
+    /// </summary>
+    public class Participant : User
+    {
+        private ISet<Meeting> _meetings;
+
+        /// <summary>
+        /// Встречи
+        /// </summary>
+        public virtual ISet<Meeting> Meetings
+        {
+            get
+            {
+                return _meetings ?? (_meetings = new HashSet<Meeting>());
+            }
+            set { _meetings = value; }
+        }
+    }
+}

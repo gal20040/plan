@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IU.Plan.Web", "IU.Plan.Web\IU.Plan.Web.csproj", "{6125B9C8-0C0A-4E33-90F6-AA9D6680C35A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IU.PlanManager.Core", "IU.PlanManager.Core\IU.PlanManager.Core.csproj", "{3419FF97-E5CD-4C00-8A49-6B5B351A8995}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IU.Plan.Core", "IU.PlanManager.Core\IU.Plan.Core.csproj", "{3419FF97-E5CD-4C00-8A49-6B5B351A8995}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IU.Plan.ConApp", "IU.Plan.ConApp\IU.Plan.ConApp.csproj", "{E9110EB3-2166-4D47-93A0-3B08047FD689}"
 EndProject

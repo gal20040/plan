@@ -1,8 +1,8 @@
-﻿using IU.PlanManager.Core.Interfaces;
-using IU.PlanManager.Core.Models;
+﻿using IU.Plan.Core.Interfaces;
+using IU.Plan.Core.Models;
 using System;
 
-namespace IU.PlanManager.Extensions
+namespace IU.Plan.Web.Extensions
 {
     /// <summary>
     /// Мероприятие
@@ -27,6 +27,11 @@ namespace IU.PlanManager.Extensions
     {
         /// <inheritdoc/>
         public virtual Guid Guid { get; set; }
+
+        /// <summary>
+        /// Мероприятие
+        /// </summary>
+        public virtual Activity Activity { get; set; }
 
         /// <summary>
         /// Валюта

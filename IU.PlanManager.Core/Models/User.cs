@@ -1,49 +1,47 @@
-﻿using IU.PlanManager.Core.Interfaces;
+﻿using IU.Plan.Core.Interfaces;
 using System;
 
-namespace IU.PlanManager.Core.Models
+namespace IU.Plan.Core.Models
 {
     public class User : IEntity
     {
-        /// <summary>
         /// <inheritdoc/>
-        /// </summary>
-        public Guid Guid { get; set; }
+        public virtual Guid Guid { get; set; }
 
         /// <summary>
         /// Имя
         /// </summary>
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         /// <summary>
         /// День рождения
         /// </summary>
-        public string Birthday { get; set; }
+        public virtual string Birthday { get; set; }
 
         /// <summary>
         /// Фотография
         /// </summary>
-        public string Photo { get; set; }
+        public virtual string Photo { get; set; }
 
         /// <summary>
         /// Email
         /// </summary>
-        public string Email { get; set; }
+        public virtual string Email { get; set; }
 
         /// <summary>
         /// Принимать приглашение
         /// </summary>
-        public bool AllowInvites { get; set; }
+        public virtual bool AllowInvites { get; set; }
 
         /// <summary>
         /// Пол
         /// </summary>
-        public Gender Gender { get; set; }
+        public virtual Gender Gender { get; set; }
 
         /// <summary>
         /// Статус пользователя
         /// </summary>
-        public Status Status { get; set; }
+        public virtual UserStatus Status { get; set; }
     }
 
     /// <summary>
@@ -68,7 +66,7 @@ namespace IU.PlanManager.Core.Models
     /// <summary>
     /// Статус пользователя
     /// </summary>
-    public enum Status
+    public enum UserStatus
     {
         /// <summary>
         /// Пользователь активен

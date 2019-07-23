@@ -1,7 +1,7 @@
 ﻿using IU.Plan.Web.Models;
-using IU.PlanManager.Core.Impl;
-using IU.PlanManager.Core.Interfaces;
-using IU.PlanManager.Core.Models;
+using IU.Plan.Web.NHibernate;
+using IU.Plan.Core.Interfaces;
+using IU.Plan.Core.Models;
 using System;
 using System.Web.Mvc;
 
@@ -9,7 +9,7 @@ namespace IU.Plan.Web.Controllers
 {
     public class EventController : Controller
     {
-        private IStore<Event> store = new EventFileStore();
+        private IStore<Event> store = new EventDBStore<Event>();
 
         // GET: Event
         public ActionResult Details(Guid uid)
@@ -63,23 +63,27 @@ namespace IU.Plan.Web.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult Delete(Guid uid)
+        public JsonResult Delete(Guid uid)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    var evnt = model.GetEvent();
-                try
-                {
-                    store.Delete(uid);
-                    ViewBag.DeleteResult = "Успешно удалено";
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", ex.Message);
-                }
-            //}
+            try
+            {
+                store.Delete(uid);
+                return Json(new { Result = "Ok" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Error = ex.Message });
+            }
+        }
 
-            return PartialView("Delete");
+        // GET: Event
+        public PartialViewResult Create()
+        {
+            var evt = new Event();
+
+            var model = new EventEditModel(evt);
+
+            return PartialView("EventEdit", model);
         }
     }
 }

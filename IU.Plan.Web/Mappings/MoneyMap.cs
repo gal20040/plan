@@ -1,5 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
-using IU.PlanManager.Extensions;
+using IU.Plan.Web.Extensions;
 
 namespace IU.Plan.Web.Mappings
 {
@@ -10,6 +10,7 @@ namespace IU.Plan.Web.Mappings
             Id(self => self.Guid);
             Map(self => self.Currency);
             Map(self => self.Value);
+            HasOne(self => self.Activity).Cascade.All().Constrained();
         }
     }
 }

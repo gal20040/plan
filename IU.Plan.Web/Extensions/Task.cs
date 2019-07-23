@@ -1,4 +1,4 @@
-﻿using IU.PlanManager.Core.Models;
+﻿using IU.Plan.Core.Models;
 
 namespace IU.Plan.Web.Extensions
 {

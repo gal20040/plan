@@ -1,0 +1,11 @@
+﻿﻿@model IU.PlanManager.Extensions.Money
+
+@if (Model == null)
+{
+    <span class="alert">
+        нет ничего
+    </span>
+}
+<p>
+    @Html.DisplayFor(model => model.Value) @Html.DisplayFor(model => model.Currency)
+</p>

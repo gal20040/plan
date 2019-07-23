@@ -1,13 +1,16 @@
-﻿using IU.PlanManager.Core.Interfaces;
+﻿using IU.Plan.Core.Interfaces;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace IU.PlanManager.Core.Models
+namespace IU.Plan.Core.Models
 {
     [Serializable]
     public class Event : IEntity
     {
-        public Event() { }
+        public Event()
+        {
+            Guid = Guid.NewGuid();
+        }
 
         /// <summary>
         /// ctor
@@ -70,9 +73,7 @@ namespace IU.PlanManager.Core.Models
             Place = place;
         }
 
-        /// <summary>
         /// <inheritdoc/>
-        /// </summary>
         [Key]
         public virtual Guid Guid { get; set; }
 
@@ -102,6 +103,11 @@ namespace IU.PlanManager.Core.Models
         public virtual string Place { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public virtual EntityLifeStatus LifeStatus { get; set; }
+
+        /// <summary>
         /// Место
         /// </summary>
         public override string ToString()
@@ -113,5 +119,14 @@ namespace IU.PlanManager.Core.Models
                    $"StartDateTime:\t{StartDateTime}\n" +
                    $"EndDateTime:\t{EndDateTime}";
         }
+    }
+
+    /// <summary>
+    /// Статус сущности
+    /// </summary>
+    public enum EntityLifeStatus
+    {
+        Active,
+        Deleted
     }
 }

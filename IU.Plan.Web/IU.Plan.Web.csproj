@@ -138,26 +138,42 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bindings\BrowserValueProvider.cs" />
     <Compile Include="Bindings\BrowserValueProviderFactory.cs" />
+    <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\EventController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\MeetingController.cs" />
+    <Compile Include="Controllers\NotifyController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Extensions\Activity.cs" />
     <Compile Include="Extensions\DayOfWeekExtension.cs" />
     <Compile Include="Extensions\Meeting.cs" />
+    <Compile Include="Extensions\Participant.cs" />
     <Compile Include="Extensions\Task.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mappings\ActivityMap.cs" />
     <Compile Include="Mappings\EventMap.cs" />
+    <Compile Include="Mappings\MeetingMap.cs" />
     <Compile Include="Mappings\MoneyMap.cs" />
+    <Compile Include="Mappings\ParticipantMap.cs" />
+    <Compile Include="Mappings\TaskMap.cs" />
+    <Compile Include="Mappings\UserMap.cs" />
+    <Compile Include="Models\ActivityEditModel.cs" />
     <Compile Include="Models\CalendarViewModel.cs" />
     <Compile Include="Models\EventContext.cs" />
     <Compile Include="Models\EventDbInitializer.cs" />
     <Compile Include="Models\EventEditModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MeetingEditModel.cs" />
     <Compile Include="Models\YearMonth.cs" />
     <Compile Include="Modules\TimerModule.cs" />
+    <Compile Include="NHibernate\BaseDBStore.cs" />
+    <Compile Include="NHibernate\EventDBStore.cs" />
+    <Compile Include="NHibernate\IEventStore.cs" />
     <Compile Include="NHibernate\NHibernateHelper.cs" />
+    <Compile Include="NHibernate\UserDBStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +191,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Code\Helpers.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -186,6 +203,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -197,10 +215,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Calendar.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Calendar.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
@@ -211,8 +227,20 @@
     <Content Include="Views\Event\Delete.cshtml" />
     <Content Include="Views\Event\Activity.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Event.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Activity.cshtml" />
+    <Content Include="Views\Activity\Details.cshtml" />
+    <Content Include="Views\Activity\Edit.cshtml" />
+    <Content Include="Views\Activity\Save.cshtml" />
+    <Content Include="Views\Search\List.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Money.cshtml" />
+    <Content Include="Views\Meeting\Details.cshtml" />
+    <Content Include="Views\Meeting\Edit.cshtml" />
+    <Content Include="Views\Meeting\Save.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Meeting.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Notify\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -227,9 +255,9 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IU.PlanManager.Core\IU.PlanManager.Core.csproj">
+    <ProjectReference Include="..\IU.PlanManager.Core\IU.Plan.Core.csproj">
       <Project>{3419ff97-e5cd-4c00-8a49-6b5b351a8995}</Project>
-      <Name>IU.PlanManager.Core</Name>
+      <Name>IU.Plan.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

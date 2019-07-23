@@ -1,6 +1,6 @@
-﻿using IU.PlanManager.Core.Impl;
-using IU.PlanManager.Core.Interfaces;
-using IU.PlanManager.Core.Models;
+﻿using IU.Plan.Core.Impl;
+using IU.Plan.Core.Interfaces;
+using IU.Plan.Core.Models;
 using System;
 using System.Linq;
 

@@ -1,0 +1,88 @@
+﻿﻿@using IU.Plan.Web.Models
+
+@{
+    ViewBag.Title = "Календарь";
+
+    var today = DateTime.Today;
+    var count = 0;
+
+    var prev = Model.StartDay.AddMonths(-1);
+    var next = Model.StartDay.AddMonths(1);
+
+    var colStart = Model.StartDay.DayOfWeek.ToInt() - 1;
+}
+
+@helper addPlus(string type, string color)
+{
+    <a href="#" style="color:@color" onclick="openCreatePopup('@type')">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </a>
+}
+
+@helper PrintEvents(int dayCounter)
+{
+    var currDay = new DateTime(Model.BeginOfPeriod.Year, Model.BeginOfPeriod.Month, dayCounter);
+    var events = Model.Events.Where(evnt => evnt.StartDateTime.Value.Day == currDay.Day);
+    <div>
+        @foreach (var evt in events)
+        {
+            if (evt != null)
+            {
+                var type = dayEvent.GetType().Name;
+                <div>
+                    <a href="#" class="btn btn-primary btn-xs overtext" title="@evt.Title" onclick="getDetails('@type', '@evt.Guid')">
+                        @evt.Title
+                    </a>
+                </div>
+            }
+        }
+    </div>
+}
+
+@*@helper PrintEvents(IU.Plan.Web.Models.CalendarViewModel model, int dayNumber, DateTime today)
+    {
+        <div>
+            @if (dayNumber < model.Limit)
+            {
+                DateTime day = new DateTime(today.Year, today.Month, dayNumber, 0, 0, 0);
+
+                var dayEvents = model.Events.Where(evt => evt.StartDate == day);
+
+                foreach (var dayEvent in dayEvents)
+                {
+                    var type = dayEvent.GetType().Name;
+                    <div>
+                        <a href="#" class="btn btn-primary btn-xs overtext" title="@dayEvent.Title" onclick="getDetails('@type', '@dayEvent.Uid')">
+                            @dayEvent.Title
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    }
+
+    @helper PrintCell(IU.Plan.Web.Models.CalendarViewModel model, int count, DateTime today)
+    {
+        var tdClass = model.StartDay.AddDays(count - 1) == today ? "bg-success" : "";
+
+        if (count > model.Limit)
+        {
+            tdClass = "bg-warning";
+        }
+
+        <td class="@(tdClass)">
+
+            @if (count <= model.Limit)
+            {
+                <div style="display:inline;">
+                    @count
+                    @addPlus("Event", "#5cb85c")
+                    @addPlus("Activity", "#5bc0de")
+                    @addPlus("Meeting", "#f0ad4e")
+
+                </div>
+                <hr />
+            }
+            @PrintEvents(model, count, today)
+        </td>
+    }*@

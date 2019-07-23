@@ -22,3 +22,13 @@ select,
 textarea {
     max-width: 280px;
 }
+
+hr {
+    margin-top: 0px;
+}
+
+.overtext {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 80px;
+}

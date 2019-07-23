@@ -20,10 +20,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Calendar", "Calendar", "Home")</li>
+                    <li id="notify_today"><a>Сегодня <span class="badge"></span></a></li>
+                    <li id="notify"><a>Завтра <span class="badge"></span></a></li>
                 </ul>
             </div>
         </div>
@@ -44,21 +42,15 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    @Scripts.Render("~/Scripts/site.js")
+
     <script type="text/javascript">
         $(document).ready(function () {
-            setInterval(checkEvents, 3 * 1000);
+            setInterval(function () {
+                checkEvents('?isToday=true', 'notify_today');
+                checkEvents('', 'notify');
+            }, 60 * 1000);
         });
-
-        function checkEvents() {
-            $.ajax({
-                url: '/Event/MiniDetails?uid=2fcd5f32-ee24-4b82-b584-7bd65e8a46a7',
-                type: 'get',
-                success: function (data) {
-                    $('#notify').html(data);
-                }
-            });
-        }
-
     </script>
 
 </body>

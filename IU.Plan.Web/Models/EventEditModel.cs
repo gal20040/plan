@@ -1,4 +1,4 @@
-﻿using IU.PlanManager.Core.Models;
+﻿using IU.Plan.Core.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
@@ -24,7 +24,7 @@ namespace IU.Plan.Web.Models
             Place = evt.Place;
         }
 
-        public Event GetEvent()
+        public virtual Event GetEvent()
         {
             return new Event()
             {

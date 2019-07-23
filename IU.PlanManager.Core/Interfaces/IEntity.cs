@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IU.PlanManager.Core.Interfaces
+namespace IU.Plan.Core.Interfaces
 {
     /// <summary>
     /// Интерфейс сущности

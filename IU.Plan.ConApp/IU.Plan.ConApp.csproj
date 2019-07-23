@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IU.PlanManager.Core\IU.PlanManager.Core.csproj">
+    <ProjectReference Include="..\IU.PlanManager.Core\IU.Plan.Core.csproj">
       <Project>{3419ff97-e5cd-4c00-8a49-6b5b351a8995}</Project>
-      <Name>IU.PlanManager.Core</Name>
+      <Name>IU.Plan.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

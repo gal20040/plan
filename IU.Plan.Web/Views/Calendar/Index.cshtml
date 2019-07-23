@@ -8,119 +8,6 @@
     var dayCounter = 1;
 }
 
-<style>
-    .overtext {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        max-width: 80px;
-    }
-</style>
-
-@helper PrintEvents(int dayCounter)
-{
-    var currDay = new DateTime(Model.BeginOfPeriod.Year, Model.BeginOfPeriod.Month, dayCounter);
-    var events = Model.Events.Where(evnt => evnt.StartDateTime.Value.Day == currDay.Day);
-    <div>
-        @foreach (var evt in events)
-        {
-            if (evt != null)
-            {
-                <div>
-                    <a href="#" class="btn btn-primary btn-xs overtext" title="@evt.Title" onclick="getDetails('@evt.Guid')">
-                        @evt.Title
-                    </a>
-                </div>
-            }
-        }
-    </div>
-}
-
-<script type="text/javascript">
-    function getDetails(uid) {
-        //console.log(uid);
-        $.ajax({
-            url: '/Event/MiniDetails?uid=' + uid,
-            success: function (data) {
-                $('#MiniDetailsResult').html(data);
-
-                $("#MiniDetailsResult").dialog({
-                    width: 'auto',
-                    modal: true,
-                    buttons: {
-                        "Удалить": function () {
-                            openDeletePopup(uid);
-                        },
-                        "Редактировать": function () {
-                            openEditPopup(uid);
-                        },
-                        Ok: function () {
-                            $(this).dialog("close");
-                        }
-                    }
-                });
-                //console.log(data);
-            }
-        });
-    }
-
-    function saveEvent() {
-        $.ajax({
-            url: '/Event/Save',
-            type: 'post',
-            data: $('form#eventSaveForm').serialize(),
-            success: function (data) {
-                $('#EditPopup').html(data);
-            }
-        });
-
-    }
-
-    function openEditPopup(uid) {
-        $.ajax({
-            url: '/Event/Edit?uid=' + uid,
-            success: function (data) {
-                $('#EditPopup').html(data);
-                $("#EditPopup").dialog({
-                    modal: true,
-                    width: 'auto',
-                    buttons: {
-                        "Сохранить": function () {
-                            saveEvent();
-                            //$(this).dialog("close");
-                        },
-                        Cancel: function () {
-                            $(this).dialog("close");
-                        }
-                    },
-                    close: function () {
-                        window.location.reload();
-                        //form[0].reset();
-                    }
-                });
-            }
-        });
-    }
-
-    function openDeletePopup(uid) {
-        $.ajax({
-            url: '/Event/Delete?uid=' + uid,
-            method: 'POST',
-            success: function (data) {
-                $('#DeletePopup').html(data);
-                $("#DeletePopup").dialog({
-                    modal: true,
-                    width: 'auto',
-                    close: function () {
-                        window.location.reload();
-                        //form[0].reset();
-                    }
-                });
-            }
-        });
-    }
-
-</script>
-
 @{
     var prevPeriod = Model.BeginOfPeriod.AddMonths(-1);
     var nextPeriod = Model.BeginOfPeriod.AddMonths(1);
@@ -129,8 +16,8 @@
 
 <h2>Календарь для @Model.BeginOfPeriod.ToString("MMMM"), @Model.BeginOfPeriod.Year</h2>
 
-<div>
-    <div>
+<div class="row">
+    <div class="col-md-8">
         <nav aria-label="...">
             <ul class="pager">
                 <li class="previous"><a href="@Url.Action("Index", new { year = prevPeriod.Year, month = prevPeriod.Month })"><span aria-hidden="true">&larr;</span> Туда</a></li>
@@ -138,6 +25,14 @@
                 <li class="next"><a href="@Url.Action("Index", new { year = nextPeriod.Year, month = nextPeriod.Month })">Сюда <span aria-hidden="true">&rarr;</span></a></li>
             </ul>
         </nav>
+    </div>
+    <div class="col-md-4">
+        <form class="form-inline" onsubmit="search(true); return false;">
+            <div class="form-group">
+                <input type="search" class="form-control" id="searchRequest" onkeyup="search()" placeholder="найти...">
+            </div>
+            <input type="submit" class="btn btn-default" value="go" />
+        </form>
     </div>
 </div>
 
@@ -167,10 +62,32 @@
 
                                 if (currDay.DayOfWeek.ToInt() == j)
                                 {
-                                    var tdClass = currDay == DateTime.Now.Date ? "bg-info" : "";
+                                    var tdClass = currDay == DateTime.Now.Date ? "bg-success" : "";
+                                    if (dayCounter > Model.EndOfPeriod.Day)
+                                    {
+                                        tdClass = "bg-warning";
+                                    }
+
                                     <td class=@(tdClass)>
-                                        @((dayCounter <= Model.EndOfPeriod.Day) ? $"{dayCounter}" : "")
-                                        @PrintEvents(dayCounter++)
+                                        @*<div style="display:inline;">
+                                                @((dayCounter <= Model.EndOfPeriod.Day) ? $"{dayCounter}" : "")
+                                                <a href="#" onclick="openCreatePopup('Event')">+</a>
+                                                <a href="#" onclick="openCreatePopup('Activity')">+</a>
+                                                <a href="#" onclick="openCreatePopup('Task')">+</a>
+                                            </div>*@
+
+                                        @if (dayCounter <= Model.EndOfPeriod.Day)
+                                        {
+                                            <div style="display:inline;">
+                                                @dayCounter
+                                                @Helpers.addPlus("Event", "#5cb85c")
+                                                @Helpers.addPlus("Activity", "#5bc0de")
+                                                @Helpers.addPlus("Task", "#f0ad4e")
+                                            </div>
+                                            <hr />
+                                        }
+
+                                        @Helpers.PrintEvents(dayCounter++)
                                     </td>
                                     continue;
                                 }

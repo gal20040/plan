@@ -1,0 +1,14 @@
+﻿﻿@model IEnumerable<IU.Plan.Core.Models.Event>
+
+<ul class="list-group">
+    @foreach (var item in Model)
+    {
+        var type = item.GetType().Name;
+        <li class="list-group-item">
+            <a href="#" class="btn btn-primary btn-xs overtext" title="@item.Title" onclick="getDetails('@type', '@item.Uid')">
+                @item.Title
+            </a>
+            @item.Description
+        </li>
+    }
+</ul>

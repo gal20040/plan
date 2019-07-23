@@ -1,21 +1,20 @@
 ﻿using IU.Plan.Web.Extensions;
 using IU.Plan.Web.Models;
 using IU.Plan.Web.NHibernate;
-using IU.PlanManager.Core.Impl;
-using IU.PlanManager.Core.Interfaces;
-using IU.PlanManager.Core.Models;
-using IU.PlanManager.Extensions;
+using IU.Plan.Core.Impl;
+using IU.Plan.Core.Interfaces;
+using IU.Plan.Core.Models;
 using System;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace IU.Plan.Web.Controllers
 {
+    [Authorize]
     public class CalendarController : Controller
     {
-        private IStore<Event> eventStore = new EventFileStore();
-        private IStore<Activity> activityStore = new BaseFileStore<Activity>();
-
+        private IStore<Event> eventStore = new EventDBStore<Event>();
+        private IStore<Activity> activityStore = new EventDBStore<Activity>();
 
         // GET: Calendar
         public ActionResult Index(DateTime yearMonthDay)
@@ -29,11 +28,11 @@ namespace IU.Plan.Web.Controllers
                     && evt.StartDateTime.Value.Month == beginOfPeriod.Month
                 ).ToList();
 
-            events.AddRange(activityStore.Entities.Where(evt =>
-                evt.StartDateTime != null
-                && evt.StartDateTime.Value.Year == beginOfPeriod.Year
-                && evt.StartDateTime.Value.Month == beginOfPeriod.Month)
-            );
+            //events.AddRange(activityStore.Entities.Where(evt =>
+            //    evt.StartDateTime != null
+            //    && evt.StartDateTime.Value.Year == beginOfPeriod.Year
+            //    && evt.StartDateTime.Value.Month == beginOfPeriod.Month)
+            //);
 
             var session = NHibernateHelper.GetCurrentSession();
             try

@@ -1,5 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
-using IU.PlanManager.Extensions;
+using IU.Plan.Web.Extensions;
 
 namespace IU.Plan.Web.Mappings
 {
@@ -7,8 +7,8 @@ namespace IU.Plan.Web.Mappings
     {
         public ActivityMap()
         {
-            HasOne(self => self.Budget);
             Map(self => self.PeopleAmount);
+            HasOne(self => self.Budget).Cascade.All().Not.LazyLoad();
         }
     }
 }

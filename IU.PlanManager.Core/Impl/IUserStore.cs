@@ -1,16 +1,15 @@
-﻿using IU.PlanManager.Core.Interfaces;
-using IU.PlanManager.Core.Models;
-using System.Collections.Generic;
+﻿using IU.Plan.Core.Interfaces;
+using IU.Plan.Core.Models;
 
-namespace IU.PlanManager.Core.Impl
+namespace IU.Plan.Core.Impl
 {
     public interface IUserStore : IStore<User>
     {
         /// <summary>
-        /// Получить список юзеров по имени
+        /// Получить пользователя по имени
         /// </summary>
         /// <param name="userName">Имя пользователя</param>
         /// <returns></returns>
-        IEnumerable<User> GetByName(string userName);
+        User GetByName(string userName);
     }
 }

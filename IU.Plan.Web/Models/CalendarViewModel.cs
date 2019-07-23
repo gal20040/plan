@@ -1,4 +1,4 @@
-﻿using IU.PlanManager.Core.Models;
+﻿using IU.Plan.Core.Models;
 using System;
 using System.Collections.Generic;
 

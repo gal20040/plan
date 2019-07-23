@@ -1,4 +1,4 @@
-﻿//using IU.PlanManager.Core.Models;
+﻿//using IU.Plan.Core.Models;
 //using System.Data.Entity;
 
 //namespace IU.Plan.Web.Models

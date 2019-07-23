@@ -1,10 +1,10 @@
-﻿using IU.PlanManager.Core.Interfaces;
+﻿using IU.Plan.Core.Interfaces;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace IU.PlanManager.Core.Helper
+namespace IU.Plan.Core.Helper
 {
     public static class XmlHelper
     {
