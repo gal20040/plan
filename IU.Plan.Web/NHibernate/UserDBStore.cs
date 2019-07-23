@@ -15,14 +15,18 @@ namespace IU.Plan.Web.NHibernate
         public override IEnumerable<User> Entities =>
             base.Entities.Where(ent => ent.Status == UserStatus.Active);
 
-        public override void Delete(Guid uid)
+        public override bool Delete(Guid uid)
         {
+            var result = false;
             var evt = Get(uid);
             if (evt != null)
             {
                 evt.Status = UserStatus.Deleted;
-                Update(evt);
+                UpdateByGuid(evt);
+                result = true;
             }
+
+            return result;
         }
 
         public User GetByName(string username)

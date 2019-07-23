@@ -23,11 +23,12 @@ namespace IU.Plan.Web.NHibernate
 
         public void Add(T entity)
         {
-            Update(entity);
+            UpdateByGuid(entity);
         }
 
-        public virtual void Delete(Guid uid)
+        public virtual bool Delete(Guid uid)
         {
+            var result = false;
             var session = NHibernateHelper.GetCurrentSession();
             try
             {
@@ -40,11 +41,14 @@ namespace IU.Plan.Web.NHibernate
                     }
                     tx.Commit();
                 }
+                result = true;
             }
             finally
             {
                 NHibernateHelper.CloseSession();
             }
+
+            return result;
         }
 
         public T Get(Guid uid)
@@ -53,7 +57,7 @@ namespace IU.Plan.Web.NHibernate
             return session.Load<T>(uid);
         }
 
-        public void Update(T entity)
+        public void UpdateByGuid(T entity)
         {
             var session = NHibernateHelper.GetCurrentSession();
             try

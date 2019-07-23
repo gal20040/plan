@@ -19,16 +19,16 @@
     </a>
 }
 
-@helper PrintEvents(int dayCounter)
+@helper PrintEvents(IU.Plan.Web.Models.CalendarViewModel model, int dayCounter)
 {
-    var currDay = new DateTime(Model.BeginOfPeriod.Year, Model.BeginOfPeriod.Month, dayCounter);
-    var events = Model.Events.Where(evnt => evnt.StartDateTime.Value.Day == currDay.Day);
+    var currDay = new DateTime(model.BeginOfPeriod.Year, model.BeginOfPeriod.Month, dayCounter);
+    var events = model.Events.Where(evnt => evnt.StartDateTime.Value.Day == currDay.Day);
     <div>
         @foreach (var evt in events)
         {
             if (evt != null)
             {
-                var type = dayEvent.GetType().Name;
+                var type = evt.GetType().Name;
                 <div>
                     <a href="#" class="btn btn-primary btn-xs overtext" title="@evt.Title" onclick="getDetails('@type', '@evt.Guid')">
                         @evt.Title

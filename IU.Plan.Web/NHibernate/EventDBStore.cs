@@ -17,19 +17,24 @@ namespace IU.Plan.Web.NHibernate
             base.Entities.Where(ent => ent.LifeStatus == EntityLifeStatus.Active);
 
         /// <inheritdoc/>
-        public override void Delete(Guid uid)
+        public override bool Delete(Guid uid)
         {
+            var result = false;
             var evt = Get(uid);
             if (evt != null)
             {
                 evt.LifeStatus = EntityLifeStatus.Deleted;
-                Update(evt);
+                UpdateByGuid(evt);
+                result = true;
             }
+
+            return result;
         }
 
         public IEnumerable<T> Find(string search)
         {
             var session = NHibernateHelper.GetCurrentSession();
+
             return session.QueryOver<T>()
                 .Where(entity => entity.LifeStatus == EntityLifeStatus.Active).
                 And(Restrictions.Or(
