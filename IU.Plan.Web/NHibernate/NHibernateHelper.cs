@@ -20,7 +20,7 @@ namespace IU.Plan.Web.NHibernate
                 .BuildConfiguration();
 
             var exporter = new SchemaExport(configuration);
-            exporter.Execute(true, false, false);
+            exporter.Execute(true, true, false);
 
             _sessionFactory = configuration.BuildSessionFactory();
         }
