@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
-using IU.Plan.Web.Extensions;
-using IU.Plan.Core.Interfaces;
-using IU.Plan.Web.NHibernate;
 using IU.Plan.Web.Models;
+using IU.Plan.Web.NH;
+using IU.PlanManager.ConApp;
+using IU.PlanManager.Extensions;
 
 namespace IU.Plan.Web.Controllers
 {
@@ -28,20 +28,6 @@ namespace IU.Plan.Web.Controllers
             return PartialView("Edit", model);
         }
 
-        [HttpPost]
-        public JsonResult Delete(Guid uid)
-        {
-            try
-            {
-                store.Delete(uid);
-                return Json(new { Result = "Ok" });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { Error = ex.Message });
-            }
-        }
-
         // GET: Event
         public PartialViewResult Edit(Guid uid)
         {
@@ -60,7 +46,7 @@ namespace IU.Plan.Web.Controllers
                 var evt = model.GetEvent();
                 try
                 {
-                    store.UpdateByGuid(evt);
+                    store.Update(evt);
                     ViewBag.SaveResult = "Успешно сохранено";
                 }
                 catch (Exception ex)
@@ -70,6 +56,20 @@ namespace IU.Plan.Web.Controllers
             }
 
             return PartialView("Edit", model);
+        }
+
+        [HttpPost]
+        public JsonResult Delete(Guid uid)
+        {
+            try
+            {
+                store.Delete(uid);
+                return Json(new { Result = "Ok"} );
+            }
+            catch(Exception ex)
+            {
+                return Json(new { Error = ex.Message });
+            }
         }
     }
 }

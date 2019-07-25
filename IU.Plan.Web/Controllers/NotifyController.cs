@@ -1,9 +1,9 @@
-﻿using IU.Plan.Web.NHibernate;
-using IU.Plan.Core.Interfaces;
-using IU.Plan.Core.Models;
-using System;
+﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using IU.Plan.Web.NH;
+using IU.PlanManager.ConApp;
+using IU.PlanManager.ConApp.Models;
 
 namespace IU.Plan.Web.Controllers
 {
@@ -17,7 +17,7 @@ namespace IU.Plan.Web.Controllers
             var tomorrow = DateTime.Today.AddDays(isToday ? 0 : 1);
             var aftertomorrow = tomorrow.AddDays(1);
 
-            var eventCount = store.Entities.Count(evt => evt.StartDateTime >= tomorrow && evt.StartDateTime < aftertomorrow);
+            var eventCount = store.Entities.Count(evt => evt.StartDate >= tomorrow && evt.StartDate < aftertomorrow);
 
             return eventCount;
         }

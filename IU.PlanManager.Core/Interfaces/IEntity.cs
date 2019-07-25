@@ -1,12 +1,15 @@
 ﻿using System;
 
-namespace IU.Plan.Core.Interfaces
+namespace IU.PlanManager.ConApp
 {
     /// <summary>
     /// Интерфейс сущности
     /// </summary>
     public interface IEntity
     {
-        Guid Guid { get; set; }
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
+        Guid Uid { get; set; }
     }
 }

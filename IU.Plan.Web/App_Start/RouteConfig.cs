@@ -10,7 +10,7 @@ namespace IU.Plan.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Calendar",
+                name: "Calendar2",
                 url: "{controller}/{action}/{year}/{month}",
                 defaults: new { controller = "Calendar", action = "Index", year = UrlParameter.Optional, month = UrlParameter.Optional }
             );

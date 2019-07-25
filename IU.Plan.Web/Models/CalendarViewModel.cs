@@ -1,6 +1,6 @@
-﻿using IU.Plan.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using IU.PlanManager.ConApp.Models;
 
 namespace IU.Plan.Web.Models
 {
@@ -17,9 +17,9 @@ namespace IU.Plan.Web.Models
         public IEnumerable<Event> Events { get; set; }
 
         /// <summary>
-        /// Количество строк
+        /// Количество ячеек
         /// </summary>
-        public int RowCount { get; set; }
+        public int Limit { get; set; }
 
         /// <summary>
         /// Количество колонок
@@ -27,13 +27,21 @@ namespace IU.Plan.Web.Models
         public int ColCount { get; set; }
 
         /// <summary>
-        /// Начало периода
+        /// Количество строк
         /// </summary>
-        public DateTime BeginOfPeriod { get; set; }
+        public int RowCount
+        {
+            get
+            {
+                var totalCells = Limit + StartDay.DayOfWeek.ToInt();
+
+                return (int)Math.Ceiling(totalCells * 1d / ColCount);
+            }
+        }
 
         /// <summary>
-        /// Конец периода
+        /// С какого дня недели начинается месяц
         /// </summary>
-        public DateTime EndOfPeriod { get; set; }
+        public DateTime StartDay { get; set; }
     }
 }

@@ -1,23 +1,14 @@
-﻿using IU.Plan.Core.Interfaces;
-using IU.Plan.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IU.Plan.Core.Impl
+namespace IU.PlanManager.ConApp.Models
 {
     /// <summary>
-    /// Хранилище событий <see cref="Event">
+    /// Хранилище событий <see cref="Event"/>
     /// </summary>
-    public class EventStore : IStore<Event> //EventStore должен реализовать IStore именно для Event
+    public class EventStore : IStore<Event>
     {
-        private List<Event> Events { get; }
-
-        /// <summary>
-        /// Список событий <see cref="Event">
-        /// </summary>
-        public IEnumerable<Event> Entities => Events;
-
         /// <summary>
         /// ctor
         /// </summary>
@@ -27,54 +18,55 @@ namespace IU.Plan.Core.Impl
         }
 
         /// <summary>
+        /// Список событий
+        /// </summary>
+        private List<Event> Events { get; }
+
+        public IEnumerable<Event> Entities => Events;
+
+        /// <summary>
         /// Добавить событие
         /// </summary>
-        /// <param name="@event">Событие</param>
-        public void Add(Event @event)
+        /// <param name="evt">Событие</param>
+        public void Add(Event evt)
         {
-            if (@event != null)
+            if (evt != null)
             {
-                Events.Add(@event);
+                Events.Add(evt);
             }
         }
 
         /// <summary>
         /// Получить событие
         /// </summary>
-        /// <param name="guid">Guid события</param>
-        public Event Get(Guid guid)
+        /// <param name="uid">ID события</param>
+        public Event Get(Guid uid)
         {
-            return Events.FirstOrDefault(@event => @event.Guid == guid);
+            return Events.FirstOrDefault(evt => evt.Uid == uid);
         }
 
         /// <summary>
-        /// Оновить событие
+        /// Обновить событие
         /// </summary>
-        /// <param name="@event">Событие</param>
-        public void UpdateByGuid(Event @event)
+        /// <param name="evt">Событие</param>
+        public void Update(Event evt)
         {
-            Delete(@event.Guid);
-            Add(@event);
+            Delete(evt.Uid);
+            Add(evt);
         }
 
         /// <summary>
         /// Удалить событие
         /// </summary>
-        /// <param name="guid">Событие</param>
-        public bool Delete(Guid guid)
+        /// <param name="evt">Событие</param>
+        public void Delete(Guid uid)
         {
-            if (guid == null)
+            var elem = Get(uid);
+            if (elem != null)
             {
-                return false;
+                Events.Remove(elem);
             }
-
-            var @event = Get(guid);
-            if (@event == null)
-            {
-                return false;
-            }
-
-            return Events.Remove(@event);
         }
+
     }
 }

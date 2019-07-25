@@ -1,6 +1,7 @@
-﻿using IU.Plan.Web.Extensions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using IU.PlanManager.ConApp.Models;
+using IU.PlanManager.Extensions;
 
 namespace IU.Plan.Web.Models
 {
@@ -26,11 +27,11 @@ namespace IU.Plan.Web.Models
         {
             return new Meeting()
             {
-                Guid = Guid,
+                Uid = Uid,
                 Title = Title,
                 Description = Description,
-                StartDateTime = StartDateTime,
-                EndDateTime = EndDateTime,
+                StartDate = StartDate,
+                EndDate = EndDate,
                 Place = Place,
                 Participants = Users
             };

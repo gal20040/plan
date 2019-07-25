@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IU.Plan.Core.Interfaces
+namespace IU.PlanManager.ConApp
 {
     /// <summary>
-    /// Интерфейс хранилища сущностей
+    /// Интерфейс хранилища
     /// </summary>
-    public interface IStore<T> where T : class, IEntity //T обязательно должен быть классом, а не просто интерфейсом, и должен реализовывать IEntity
+    public interface IStore<T> where T : IEntity
     {
+        /// <summary>
+        /// Список сущностей
+        /// </summary>
         IEnumerable<T> Entities { get; }
 
         /// <summary>
@@ -19,19 +22,20 @@ namespace IU.Plan.Core.Interfaces
         /// <summary>
         /// Получить сущность
         /// </summary>
-        /// <param name="guid">Guid сущности</param>
-        T Get(Guid guid);
+        /// <param name="uid">ID сущности</param>
+        T Get(Guid uid);
 
         /// <summary>
         /// Обновить сущность
         /// </summary>
         /// <param name="entity">Сущность</param>
-        void UpdateByGuid(T entity);
+        void Update(T entity);
 
         /// <summary>
         /// Удалить сущность
         /// </summary>
-        /// <param name="guid">Guid сущности</param>
-        bool Delete(Guid guid);
+        /// <param name="uid">ID сущности</param>
+        void Delete(Guid uid);
+
     }
 }

@@ -1,13 +1,13 @@
-﻿function getDetails(type, uid) {
-    //console.log(uid);
+﻿
+function getDetails(type, uid) {
     $.ajax({
         url: '/' + type + '/MiniDetails?uid=' + uid,
         success: function (data) {
             $('#MiniDetailsResult').html(data);
 
             $("#MiniDetailsResult").dialog({
-                width: 'auto',
                 modal: true,
+                width: 'auto',
                 buttons: {
                     "Редактировать": function () {
                         $(this).dialog("close");
@@ -22,7 +22,6 @@
                     }
                 }
             });
-            //console.log(data);
         }
     });
 }
@@ -91,8 +90,6 @@ function openEditPopup(type, uid) {
                 width: 'auto',
                 buttons: {
                     "Сохранить": function () {
-                        //saveEvent();
-                        ////$(this).dialog("close");
                         saveEvent(type, function () {
                             editPopup.dialog("close");
                             document.location.reload();
@@ -101,10 +98,6 @@ function openEditPopup(type, uid) {
                     Cancel: function () {
                         $(this).dialog("close");
                     }
-                    //},
-                    //close: function () {
-                    //    window.location.reload();
-                    //    //form[0].reset();
                 }
             });
         }
@@ -112,6 +105,7 @@ function openEditPopup(type, uid) {
 }
 
 window.timer = 0;
+
 function search(force) {
     var find = $("#searchRequest").val();
     if (!!force && find.length >= 3) {
@@ -132,6 +126,7 @@ function search(force) {
     }
 }
 
+
 function checkEvents(url, id) {
     $.ajax({
         url: '/Notify/Info' + url,
@@ -145,21 +140,3 @@ function checkEvents(url, id) {
         }
     });
 }
-
-/*function openDeletePopup(uid) {
-    $.ajax({
-        url: '/Event/Delete?uid=' + uid,
-        method: 'POST',
-        success: function (data) {
-            $('#DeletePopup').html(data);
-            $("#DeletePopup").dialog({
-                modal: true,
-                width: 'auto',
-                close: function () {
-                    window.location.reload();
-                    //form[0].reset();
-                }
-            });
-        }
-    });
-}*/

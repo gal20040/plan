@@ -1,12 +1,14 @@
-﻿using IU.Plan.Core.Interfaces;
-using System;
+﻿using System;
 
-namespace IU.Plan.Core.Models
+namespace IU.PlanManager.ConApp.Models
 {
+    /// <summary>
+    /// Пользователь
+    /// </summary>
     public class User : IEntity
     {
         /// <inheritdoc/>
-        public virtual Guid Guid { get; set; }
+        public virtual Guid Uid { get; set; }
 
         /// <summary>
         /// Имя
@@ -16,20 +18,20 @@ namespace IU.Plan.Core.Models
         /// <summary>
         /// День рождения
         /// </summary>
-        public virtual string Birthday { get; set; }
+        public virtual DateTime Birthday { get; set; }
 
         /// <summary>
-        /// Фотография
+        /// Фото
         /// </summary>
         public virtual string Photo { get; set; }
-
+        
         /// <summary>
         /// Email
         /// </summary>
         public virtual string Email { get; set; }
 
         /// <summary>
-        /// Принимать приглашение
+        /// Принимать приглашения
         /// </summary>
         public virtual bool AllowInvites { get; set; }
 
@@ -45,36 +47,31 @@ namespace IU.Plan.Core.Models
     }
 
     /// <summary>
+    /// Статус пользователя
+    /// </summary>
+    public enum UserStatus
+    {
+        Active,
+        Deleted
+    }
+
+    /// <summary>
     /// Пол
     /// </summary>
     public enum Gender
     {
         /// <summary>
-        /// Не определён
+        /// Неопределено
         /// </summary>
         Undefined,
         /// <summary>
-        /// Женский
-        /// </summary>
-        Female,
-        /// <summary>
         /// Мужской
         /// </summary>
-        Male
-    }
+        Man,
+        /// <summary>
+        /// Женский
+        /// </summary>
+        Woman,
 
-    /// <summary>
-    /// Статус пользователя
-    /// </summary>
-    public enum UserStatus
-    {
-        /// <summary>
-        /// Пользователь активен
-        /// </summary>
-        Active,
-        /// <summary>
-        /// Пользователь удалён
-        /// </summary>
-        Deleted
     }
 }

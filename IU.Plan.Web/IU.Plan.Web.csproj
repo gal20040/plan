@@ -8,17 +8,17 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6125B9C8-0C0A-4E33-90F6-AA9D6680C35A}</ProjectGuid>
+    <ProjectGuid>{56E163FE-1B46-4C7C-B232-A4A91B6000C7}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IU.Plan.Web</RootNamespace>
     <AssemblyName>IU.Plan.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>55278</IISExpressSSLPort>
+    <IISExpressSSLPort>53386</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -57,6 +57,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="NHibernate, Version=5.2.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernate.5.2.5\lib\net461\NHibernate.dll</HintPath>
@@ -128,6 +129,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System.Diagnostics.DiagnosticSource">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -136,50 +143,42 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Bindings\BrowserValueProvider.cs" />
-    <Compile Include="Bindings\BrowserValueProviderFactory.cs" />
-    <Compile Include="Controllers\ActivityController.cs" />
+    <Compile Include="Binding\BrowserValueProvider.cs" />
+    <Compile Include="Binding\BrowserValueProviderFactory.cs" />
+    <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\NotifyController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Extensions\Activity.cs" />
     <Compile Include="Extensions\DayOfWeekExtension.cs" />
-    <Compile Include="Extensions\Meeting.cs" />
-    <Compile Include="Extensions\Participant.cs" />
-    <Compile Include="Extensions\Task.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mappings\ActivityMap.cs" />
-    <Compile Include="Mappings\EventMap.cs" />
-    <Compile Include="Mappings\MeetingMap.cs" />
-    <Compile Include="Mappings\MoneyMap.cs" />
-    <Compile Include="Mappings\ParticipantMap.cs" />
-    <Compile Include="Mappings\TaskMap.cs" />
-    <Compile Include="Mappings\UserMap.cs" />
-    <Compile Include="Models\ActivityEditModel.cs" />
-    <Compile Include="Models\CalendarViewModel.cs" />
-    <Compile Include="Models\EventContext.cs" />
-    <Compile Include="Models\EventDbInitializer.cs" />
-    <Compile Include="Models\EventEditModel.cs" />
-    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MeetingEditModel.cs" />
-    <Compile Include="Models\YearMonth.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="NH\UserDBStore.cs" />
+    <Compile Include="NH\Mappings\MeetingMap.cs" />
+    <Compile Include="NH\Mappings\ParticipantMap.cs" />
+    <Compile Include="NH\Mappings\UserMap.cs" />
+    <Compile Include="NH\Mappings\TaskMap.cs" />
+    <Compile Include="NH\Mappings\ActivityMap.cs" />
+    <Compile Include="NH\Mappings\MoneyMap.cs" />
+    <Compile Include="NH\Mappings\EventMap.cs" />
+    <Compile Include="Models\CalendarViewModel.cs" />
+    <Compile Include="Models\ActivityEditModel.cs" />
+    <Compile Include="Models\EventEditModel.cs" />
     <Compile Include="Modules\TimerModule.cs" />
-    <Compile Include="NHibernate\BaseDBStore.cs" />
-    <Compile Include="NHibernate\EventDBStore.cs" />
-    <Compile Include="NHibernate\IEventStore.cs" />
-    <Compile Include="NHibernate\NHibernateHelper.cs" />
-    <Compile Include="NHibernate\UserDBStore.cs" />
+    <Compile Include="NH\BaseDBStore.cs" />
+    <Compile Include="NH\EventDBStore.cs" />
+    <Compile Include="NH\NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\PlanManager.mdf" />
-    <Content Include="App_Data\PlanManager_log.ldf">
-      <DependentUpon>PlanManager.mdf</DependentUpon>
+    <Content Include="App_Data\PlanManager_varan3.mdf" />
+    <Content Include="App_Data\PlanManager_varan3_log.ldf">
+      <DependentUpon>PlanManager_varan3.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -215,24 +214,24 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Calendar.cshtml" />
+    <Content Include="Views\Login\About.cshtml" />
+    <Content Include="Views\Login\Contact.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
+    <Content Include="Views\Event\Save.cshtml" />
+    <Content Include="Views\Event\EventEdit.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
-    <Content Include="Views\Event\EventEdit.cshtml" />
-    <Content Include="Views\Event\Save.cshtml" />
-    <Content Include="Views\Event\Delete.cshtml" />
-    <Content Include="Views\Event\Activity.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\Event.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Activity.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Event.cshtml" />
     <Content Include="Views\Activity\Details.cshtml" />
     <Content Include="Views\Activity\Edit.cshtml" />
     <Content Include="Views\Activity\Save.cshtml" />
-    <Content Include="Views\Search\List.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Money.cshtml" />
+    <Content Include="Views\Search\List.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Meeting\Details.cshtml" />
     <Content Include="Views\Meeting\Edit.cshtml" />
     <Content Include="Views\Meeting\Save.cshtml" />
@@ -255,9 +254,13 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IU.PlanManager.Core\IU.Plan.Core.csproj">
-      <Project>{3419ff97-e5cd-4c00-8a49-6b5b351a8995}</Project>
-      <Name>IU.Plan.Core</Name>
+    <ProjectReference Include="..\IU.PlanManager.Core\IU.PlanManager.Core.csproj">
+      <Project>{7692ffd6-8871-490c-8c29-61d5afce09e9}</Project>
+      <Name>IU.PlanManager.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IU.PlanManager.Extensions\IU.PlanManager.Extensions.csproj">
+      <Project>{1A6A3BFB-388C-45C7-BB88-E86E2996AEA3}</Project>
+      <Name>IU.PlanManager.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -276,9 +279,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>55278</DevelopmentServerPort>
+          <DevelopmentServerPort>53386</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:55278/</IISUrl>
+          <IISUrl>http://localhost:53387/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

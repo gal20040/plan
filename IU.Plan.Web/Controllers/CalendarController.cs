@@ -1,12 +1,11 @@
-﻿using IU.Plan.Web.Extensions;
-using IU.Plan.Web.Models;
-using IU.Plan.Web.NHibernate;
-using IU.Plan.Core.Impl;
-using IU.Plan.Core.Interfaces;
-using IU.Plan.Core.Models;
-using System;
+﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using IU.Plan.Web.Models;
+using IU.Plan.Web.NH;
+using IU.PlanManager.ConApp;
+using IU.PlanManager.ConApp.Models;
+using IU.PlanManager.Extensions;
 
 namespace IU.Plan.Web.Controllers
 {
@@ -14,54 +13,28 @@ namespace IU.Plan.Web.Controllers
     public class CalendarController : Controller
     {
         private IStore<Event> eventStore = new EventDBStore<Event>();
+
         private IStore<Activity> activityStore = new EventDBStore<Activity>();
 
         // GET: Calendar
         public ActionResult Index(DateTime yearMonthDay)
         {
-            var eventFileStore = new EventFileStore();
-            var beginOfPeriod = new DateTime(yearMonthDay.Year, yearMonthDay.Month, 1);
-            var endOfPeriod = beginOfPeriod.AddMonths(1).AddMilliseconds(-1);
+            var today = DateTime.Today;
+
+            var startMonth = yearMonthDay;
+            var endMonth = startMonth.AddMonths(1);
+
             var events = eventStore.Entities.Where(evt =>
-                evt.StartDateTime != null
-                    && evt.StartDateTime.Value.Year == beginOfPeriod.Year
-                    && evt.StartDateTime.Value.Month == beginOfPeriod.Month
+                   evt.StartDate >= startMonth && evt.StartDate < endMonth
                 ).ToList();
-
-            //events.AddRange(activityStore.Entities.Where(evt =>
-            //    evt.StartDateTime != null
-            //    && evt.StartDateTime.Value.Year == beginOfPeriod.Year
-            //    && evt.StartDateTime.Value.Month == beginOfPeriod.Month)
-            //);
-
-            var session = NHibernateHelper.GetCurrentSession();
-            try
-            {
-                using (var tx = session.BeginTransaction())
-                {
-                    session.Save(events[0]);
-                    tx.Commit();
-                }
-            }
-            finally
-            {
-                NHibernateHelper.CloseSession();
-            }
-
-            var colCount = 7;
 
             var model = new CalendarViewModel
             {
                 Events = events,
-                BeginOfPeriod = beginOfPeriod,
-                EndOfPeriod = endOfPeriod,
-                ColCount = colCount,
-                RowCount = (int)Math.Ceiling((endOfPeriod.Day + beginOfPeriod.DayOfWeek.ToInt()) * 1d / colCount)
-                //dayNumberOfTheFirstPeriodDay - 1 - нужно, чтобы учесть сдвиг,
-                //когда первое число месяца попадает на любой день кроме понедельника
+                Limit = DateTime.DaysInMonth(yearMonthDay.Year, yearMonthDay.Month),
+                ColCount = 7,
+                StartDay = startMonth
             };
-
-            //ViewBag.Browser = browser;
 
             return View(model);
         }

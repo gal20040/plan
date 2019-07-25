@@ -1,7 +1,7 @@
-﻿using IU.Plan.Web.Extensions;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using IU.PlanManager.Extensions;
 
 namespace IU.Plan.Web.Models
 {
@@ -22,7 +22,7 @@ namespace IU.Plan.Web.Models
             Budget = evt.Budget;
             if (Budget != null)
             {
-                BudgetUid = Budget.Guid;
+                BudgetUid = Budget.Uid;
             }
             PeopleAmount = evt.PeopleAmount;
         }
@@ -31,15 +31,15 @@ namespace IU.Plan.Web.Models
         public new Activity GetEvent()
         {
             var budget = Budget;
-            budget.Guid = BudgetUid;
+            budget.Uid = BudgetUid;
 
             var activity = new Activity()
             {
-                Guid = Guid,
+                Uid = Uid,
                 Title = Title,
                 Description = Description,
-                StartDateTime = StartDateTime,
-                EndDateTime = EndDateTime,
+                StartDate = StartDate,
+                EndDate = EndDate,
                 Place = Place,
                 Budget = budget,
                 PeopleAmount = PeopleAmount
@@ -49,14 +49,14 @@ namespace IU.Plan.Web.Models
             return activity;
         }
 
+        [HiddenInput(DisplayValue = false)]
+        public Guid BudgetUid { get; set; }
+
         /// <summary>
         /// Заголовок
         /// </summary>
         [Display(Name = "Бюджет")]
         public Money Budget { get; set; }
-
-        [HiddenInput(DisplayValue = false)]
-        public Guid BudgetUid { get; set; }
 
         /// <summary>
         /// Заголовок

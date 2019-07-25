@@ -8,8 +8,8 @@ namespace IU.Plan.Web.Modules
     public class TimerModule : IHttpModule
     {
         static Timer timer;
-        readonly long interval = 30000; //30 секунд
-        static readonly object synclock = new object();
+        long interval = 30000; //30 секунд
+        static object synclock = new object();
         static bool sent = false;
 
         public void Init(HttpApplication app)
@@ -22,39 +22,33 @@ namespace IU.Plan.Web.Modules
             lock (synclock)
             {
                 DateTime dd = DateTime.Now;
-                var hour = 12;
-                var minute = 53;
-                if (dd.Hour == hour && dd.Minute == minute && sent == false)
+                if (dd.Hour == 13 && dd.Minute == 74 && sent == false)
                 {
                     // настройки smtp-сервера, с которого мы и будем отправлять письмо
-                    var smtp = new SmtpClient("smtp.gmail.com", 587)
-                    {
-                        EnableSsl = true,
-                        Credentials = new System.Net.NetworkCredential("gal20040@gmail.com", "")
-                    };
+                    SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
+                    smtp.EnableSsl = true;
+                    smtp.Credentials = new System.Net.NetworkCredential("", "");
 
                     // наш email с заголовком письма
-                    var from = new MailAddress("gal20040@gmail.com", "gal20040");
+                    MailAddress from = new MailAddress("", "Варанкин");
                     // кому отправляем
-                    var to = new MailAddress("gal20040@gmail.com");
+                    MailAddress to = new MailAddress("varankin@elewise.com");
                     // создаем объект сообщения
-                    var mailMessage = new MailMessage(from, to)
-                    {
-                        // тема письма
-                        Subject = "Test mail",
-                        // текст письма
-                        Body = "Рассылка сайта"
-                    };
-                    smtp.Send(mailMessage);
+                    MailMessage m = new MailMessage(from, to);
+                    // тема письма
+                    m.Subject = "Test mail";
+                    // текст письма
+                    m.Body = "Рассылка сайта";
+                    smtp.Send(m);
                     sent = true;
                 }
-                else if (dd.Hour != hour && dd.Minute != minute)
+                else if (dd.Hour != 13 && dd.Minute != 02)
                 {
                     sent = false;
                 }
             }
         }
-
-        public void Dispose() { }
+        public void Dispose()
+        { }
     }
 }

@@ -1,13 +1,16 @@
-﻿using IU.Plan.Core.Models;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using IU.PlanManager.ConApp.Models;
 
 namespace IU.Plan.Web.Models
 {
     public class EventEditModel
     {
-        public EventEditModel() { }
+        public EventEditModel()
+        {
+
+        }
 
         public EventEditModel(Event evt)
         {
@@ -16,11 +19,11 @@ namespace IU.Plan.Web.Models
                 return;
             }
 
-            Guid = evt.Guid;
+            Uid = evt.Uid;
             Title = evt.Title;
             Description = evt.Description;
-            StartDateTime = evt.StartDateTime;
-            EndDateTime = evt.EndDateTime;
+            StartDate = evt.StartDate;
+            EndDate = evt.EndDate;
             Place = evt.Place;
         }
 
@@ -28,18 +31,18 @@ namespace IU.Plan.Web.Models
         {
             return new Event()
             {
-                Guid = Guid,
+                Uid = Uid,
                 Title = Title,
                 Description = Description,
-                StartDateTime = StartDateTime,
-                EndDateTime = EndDateTime,
+                StartDate = StartDate,
+                EndDate = EndDate,
                 Place = Place
             };
         }
 
         /// <inheritdoc/>
         [HiddenInput(DisplayValue = false)]
-        public Guid Guid { get; set; }
+        public Guid Uid { get; set; }
 
         /// <summary>
         /// Заголовок
@@ -56,19 +59,19 @@ namespace IU.Plan.Web.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// Начало события
+        /// Начало периода
         /// </summary>
         [Display(Name = "с")]
-        [Required(ErrorMessage = "Нам нужно знать, когда это произойдет")]
+        [Required(ErrorMessage = "Нам нужно знать когда это произойдет")]
         [DataType(DataType.DateTime)]
-        public DateTime? StartDateTime { get; set; }
+        public DateTime? StartDate { get; set; }
 
         /// <summary>
-        /// Окончание события
+        /// Окончание периода
         /// </summary>
         [Display(Name = "по")]
         [DataType(DataType.DateTime)]
-        public DateTime? EndDateTime { get; set; }
+        public DateTime? EndDate { get; set; }
 
         /// <summary>
         /// Место 

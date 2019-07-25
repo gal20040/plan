@@ -1,9 +1,9 @@
-﻿using IU.Plan.Web.Models;
-using IU.Plan.Web.NHibernate;
-using IU.Plan.Core.Interfaces;
-using IU.Plan.Core.Models;
-using System;
+﻿using System;
 using System.Web.Mvc;
+using IU.Plan.Web.Models;
+using IU.Plan.Web.NH;
+using IU.PlanManager.ConApp;
+using IU.PlanManager.ConApp.Models;
 
 namespace IU.Plan.Web.Controllers
 {
@@ -14,32 +14,36 @@ namespace IU.Plan.Web.Controllers
         // GET: Event
         public ActionResult Details(Guid uid)
         {
-            var evnt = store.Get(uid);
+            var evt = store.Get(uid);
 
-            return View(evnt);
+            return View(evt);
         }
 
         public PartialViewResult MiniDetails(Guid uid)
         {
-            var evnt = store.Get(uid);
+            var evt = store.Get(uid);
 
-            return PartialView("Details", evnt);
+            return PartialView("Details", evt);
+        }
+
+        // GET: Event
+        public PartialViewResult Create()
+        {
+            var evt = new Event();
+
+            var model = new EventEditModel(evt);
+
+            return PartialView("EventEdit", model);
         }
 
         // GET: Event
         public PartialViewResult Edit(Guid uid)
         {
-            var evnt = store.Get(uid);
+            var evt = store.Get(uid);
 
-            var model = new EventEditModel(evnt);
+            var model = new EventEditModel(evt);
 
             return PartialView("EventEdit", model);
-        }
-
-        public PartialViewResult EventEdit(Guid uid)
-        {
-
-            return PartialView("EventEdit");
         }
 
         [HttpPost]
@@ -47,10 +51,10 @@ namespace IU.Plan.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var evnt = model.GetEvent();
+                var evt = model.GetEvent();
                 try
                 {
-                    store.UpdateByGuid(evnt);
+                    store.Update(evt);
                     ViewBag.SaveResult = "Успешно сохранено";
                 }
                 catch (Exception ex)
@@ -61,6 +65,7 @@ namespace IU.Plan.Web.Controllers
 
             return PartialView("EventEdit", model);
         }
+
 
         [HttpPost]
         public JsonResult Delete(Guid uid)
@@ -74,16 +79,6 @@ namespace IU.Plan.Web.Controllers
             {
                 return Json(new { Error = ex.Message });
             }
-        }
-
-        // GET: Event
-        public PartialViewResult Create()
-        {
-            var evt = new Event();
-
-            var model = new EventEditModel(evt);
-
-            return PartialView("EventEdit", model);
         }
     }
 }

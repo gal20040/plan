@@ -1,81 +1,22 @@
-﻿using IU.Plan.Core.Interfaces;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
-namespace IU.Plan.Core.Models
+namespace IU.PlanManager.ConApp.Models
 {
-    [Serializable]
+    /// <summary>
+    /// Событие
+    /// </summary>
     public class Event : IEntity
     {
+        /// <summary>
+        /// ctor
+        /// </summary>
         public Event()
         {
-            Guid = Guid.NewGuid();
-        }
-
-        /// <summary>
-        /// ctor
-        /// </summary>
-        /// <param name="title">Заголовок</param>
-        /// <param name="description">Описание</param>
-        public Event(string title, string description) : this()
-        {
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                throw new ArgumentException("message", nameof(title)); //todo добавить message
-            }
-
-            if (string.IsNullOrWhiteSpace(description))
-            {
-                throw new ArgumentException("message", nameof(description)); //todo добавить message
-            }
-
-            Title = title;
-            Description = description;
-        }
-
-        /// <summary>
-        /// ctor
-        /// </summary>
-        /// <param name="title">Заголовок</param>
-        /// <param name="description">Описание</param>
-        /// <param name="startDateTime">Начало события</param>
-        public Event(string title, string description, DateTime? startDateTime) : this(title, description)
-        {
-            StartDateTime = startDateTime;
-        }
-
-        /// <summary>
-        /// ctor
-        /// </summary>
-        /// <param name="title">Заголовок</param>
-        /// <param name="description">Описание</param>
-        /// <param name="startDateTime">Начало события</param>
-        /// <param name="endDateTime">Окончание события</param>
-        public Event(string title, string description, DateTime? startDateTime, DateTime? endDateTime) : this(title, description, startDateTime)
-        {
-            if (startDateTime == null && endDateTime != null)
-            {
-                throw new ArgumentNullException(nameof(startDateTime), "message"); //todo добавить message
-            }
-
-            EndDateTime = endDateTime;
-        }
-
-        /// <summary>
-        /// ctor
-        /// </summary>
-        /// <param name="title">Заголовок</param>
-        /// <param name="description">Описание</param>
-        /// <param name="startDateTime">Начало события</param>
-        /// <param name="endDateTime">Окончание события</param>
-        public Event(string title, string description, DateTime? startDateTime, DateTime? endDateTime, string place) : this(title, description, startDateTime, endDateTime)
-        {
-            Place = place;
         }
 
         /// <inheritdoc/>
-        [Key]
-        public virtual Guid Guid { get; set; }
+        public virtual Guid Uid { get; set; }
 
         /// <summary>
         /// Заголовок
@@ -88,38 +29,32 @@ namespace IU.Plan.Core.Models
         public virtual string Description { get; set; }
 
         /// <summary>
-        /// Начало события
+        /// Начало периода
         /// </summary>
-        public virtual DateTime? StartDateTime { get; set; }
+        public virtual DateTime? StartDate { get; set; }
 
         /// <summary>
-        /// Окончание события
+        /// Окончание периода
         /// </summary>
-        public virtual DateTime? EndDateTime { get; set; }
+        public virtual DateTime? EndDate { get; set; }
 
         /// <summary>
-        /// Место
+        /// Место 
         /// </summary>
         public virtual string Place { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual EntityLifeStatus LifeStatus { get; set; }
-
-        /// <summary>
-        /// Место
-        /// </summary>
         public override string ToString()
         {
-            return $"Guid:\t\t{Guid}\n" +
-                   $"Title:\t\t{Title}\n" +
-                   $"Description:\t{Description}\n" +
-                   $"Place:\t\t{Place}\n" +
-                   $"StartDateTime:\t{StartDateTime}\n" +
-                   $"EndDateTime:\t{EndDateTime}";
+            var fields = new List<string>() { StartDate?.ToShortDateString(), Title , Place};
+
+            fields.RemoveAll(s => string.IsNullOrWhiteSpace(s));
+
+            return string.Join(", ", fields);
         }
+
+        public virtual EntityLifeStatus LifeStatus { get; set; }
     }
+
 
     /// <summary>
     /// Статус сущности
@@ -129,4 +64,5 @@ namespace IU.Plan.Core.Models
         Active,
         Deleted
     }
+
 }

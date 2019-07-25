@@ -1,19 +1,18 @@
-﻿using IU.Plan.Core.Interfaces;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 
-namespace IU.Plan.Core.Impl
+namespace IU.PlanManager.ConApp.Models
 {
     /// <summary>
-    /// Хранилище сущностей <see cref="IEntity"/>
+    /// Хранилище событий <see cref="IEntity"/>
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class BaseFileStore<T> : IStore<T> where T : class, IEntity
+    public class BaseFileStore<T> : IStore<T>
+        where T : class, IEntity
     {
-        private string fileName = AppDomain.CurrentDomain.BaseDirectory + @"..\{0}.json";
+        private string fileName = "c:\\{0}.json";
 
         /// <summary>
         /// ctor
@@ -41,156 +40,58 @@ namespace IU.Plan.Core.Impl
         }
 
         /// <summary>
-        /// Список сущностей
+        /// Список событий
         /// </summary>
         private List<T> entities { get; }
 
         public IEnumerable<T> Entities => entities;
 
         /// <summary>
-        /// Добавить сущность
+        /// Добавить событие
         /// </summary>
-        /// <param name="ent">Сущность</param>
-        public virtual void Add(T ent)
+        /// <param name="evt">Событие</param>
+        public virtual void Add(T evt)
         {
-            if (ent != null)
+            if (evt != null)
             {
-                entities.Add(ent);
+                entities.Add(evt);
 
                 Flush();
             }
         }
 
         /// <summary>
-        /// Получить сущность
+        /// Получить событие
         /// </summary>
-        /// <param name="uid">ID сущности</param>
+        /// <param name="uid">ID события</param>
         public virtual T Get(Guid uid)
         {
-            return entities.FirstOrDefault(ent => ent.Guid == uid);
+            return entities.FirstOrDefault(evt => evt.Uid == uid);
         }
 
         /// <summary>
-        /// Обновить сущность
+        /// Обновить событие
         /// </summary>
-        /// <param name="ent">Сущность</param>
-        public virtual void Update(T ent)
+        /// <param name="evt">Событие</param>
+        public virtual void Update(T evt)
         {
-            Delete(ent.Guid);
-            Add(ent);
+            Delete(evt.Uid);
+            Add(evt);
         }
 
         /// <summary>
-        /// Удалить сущность
+        /// Удалить событие
         /// </summary>
-        /// <param name="uid">ID сущности</param>
-        /// <returns></returns>
-        public virtual bool Delete(Guid uid)
+        /// <param name="evt">Событие</param>
+        public virtual void Delete(Guid uid)
         {
-            if (uid == null)
-            {
-                return false;
-            }
-
             var elem = Get(uid);
-            if (elem == null)
+            if (elem != null)
             {
-                return false;
+                entities.Remove(elem);
+                Flush();
             }
-            entities.Remove(elem);
-            Flush();
-            return true;
         }
 
-        /// <summary>
-        /// Обновить сущность
-        /// </summary>
-        /// <param name="ent">Сущность</param>
-        public virtual void UpdateByGuid(T ent)
-        {
-            Delete(ent.Guid);
-            Add(ent);
-        }
     }
-
-
-
-
-    /*/// <summary>
-    /// Хранилище сущностей <see cref="IEntity"/>
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class BaseFileStore<T> : IStore<T> where T : class, IEntity
-    {
-        public string FileName { get; private set; } = "{0}.xml";
-
-        public BaseFileStore()
-        {
-            Init();
-        }
-
-        protected virtual void Init()
-        {
-            FileName = string.Format(FileName, typeof(T).Name.ToLower());
-        }
-
-        public IEnumerable<T> Entities => XmlHelper.GetEntitiesFromXmlFile(FileName);
-
-        public virtual void Add(T newEntity)
-        {
-            if (newEntity == null)
-            {
-                return;
-            }
-
-            IStore<T> EntityStore = GetEntityStoreFromXmlFile();
-
-            EntityStore.Add(newEntity);
-
-            XmlHelper.SaveToFile(EntityStore.Entities, FileName);
-        }
-
-        protected virtual IStore<T> GetEntityStoreFromXmlFile()
-        {
-            IStore<T> EntityStore = new EntityStore();
-            foreach (var @Entity in XmlHelper.GetEntitiesFromXmlFile(FileName))
-            {
-                EntityStore.Add(@Entity);
-            }
-
-            return EntityStore;
-        }
-
-        public virtual bool Delete(Guid guid)
-        {
-            if (guid == null)
-            {
-                return false;
-            }
-
-            IStore<T> EntityStore = GetEntityStoreFromXmlFile();
-
-            if (!EntityStore.Delete(guid))
-            {
-                return false;
-            }
-
-            XmlHelper.SaveToFile(EntityStore.Entities, FileName);
-
-            return true;
-        }
-
-        public virtual T Get(Guid guid)
-        {
-            IStore<T> EntityStore = GetEntityStoreFromXmlFile();
-
-            return EntityStore.Entities.FirstOrDefault(@Entity => @Entity.Guid == guid);
-        }
-
-        public virtual void UpdateByGuid(T @Entity)
-        {
-            Delete(@Entity.Guid);
-            Add(@Entity);
-        }
-    }*/
 }
