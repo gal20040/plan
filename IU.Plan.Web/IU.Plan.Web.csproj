@@ -176,9 +176,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\PlanManager_varan3.mdf" />
-    <Content Include="App_Data\PlanManager_varan3_log.ldf">
-      <DependentUpon>PlanManager_varan3.mdf</DependentUpon>
+    <Content Include="App_Data\PlanManager.mdf" />
+    <Content Include="App_Data\PlanManager_log.ldf">
+      <DependentUpon>PlanManager.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
