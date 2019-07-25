@@ -14,12 +14,10 @@ namespace IU.Plan.Web.Controllers
     public class CalendarController : Controller
     {
         private IStore<Event> eventStore = new EventDBStore<Event>();
-        private IStore<Activity> activityStore = new EventDBStore<Activity>();
 
         // GET: Calendar
         public ActionResult Index(DateTime yearMonthDay)
         {
-            var eventFileStore = new EventFileStore();
             var beginOfPeriod = new DateTime(yearMonthDay.Year, yearMonthDay.Month, 1);
             var endOfPeriod = beginOfPeriod.AddMonths(1).AddMilliseconds(-1);
             var events = eventStore.Entities.Where(evt =>
@@ -34,19 +32,46 @@ namespace IU.Plan.Web.Controllers
             //    && evt.StartDateTime.Value.Month == beginOfPeriod.Month)
             //);
 
-            var session = NHibernateHelper.GetCurrentSession();
-            try
-            {
-                using (var tx = session.BeginTransaction())
-                {
-                    session.Save(events[0]);
-                    tx.Commit();
-                }
-            }
-            finally
-            {
-                NHibernateHelper.CloseSession();
-            }
+            //var session = NHibernateHelper.GetCurrentSession();
+            //try
+            //{
+            //    using (var tx = session.BeginTransaction())
+            //    {
+            //        var newUser = new User()
+            //        {
+            //            //Guid = Guid.NewGuid(),
+            //            Name = "Artem",
+            //            Status = UserStatus.Active,
+            //            Gender = Gender.Male,
+            //            AllowInvites = true,
+            //            Email = "gal20040@gmail.com"
+            //        };
+
+            //        //if (session.Get(newUser) == null)
+            //        //{
+            //        session.SaveOrUpdate(newUser);
+            //        //}
+            //        tx.Commit();
+            //    }
+            //}
+            //finally
+            //{
+            //    NHibernateHelper.CloseSession();
+            //}
+
+            //session = NHibernateHelper.GetCurrentSession();
+            //try
+            //{
+            //    using (var tx = session.BeginTransaction())
+            //    {
+            //        session.Save(events[0]);
+            //        tx.Commit();
+            //    }
+            //}
+            //finally
+            //{
+            //    NHibernateHelper.CloseSession();
+            //}
 
             var colCount = 7;
 
@@ -60,8 +85,6 @@ namespace IU.Plan.Web.Controllers
                 //dayNumberOfTheFirstPeriodDay - 1 - нужно, чтобы учесть сдвиг,
                 //когда первое число месяца попадает на любой день кроме понедельника
             };
-
-            //ViewBag.Browser = browser;
 
             return View(model);
         }
