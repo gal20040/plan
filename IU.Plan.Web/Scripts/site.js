@@ -145,21 +145,3 @@ function checkEvents(url, id) {
         }
     });
 }
-
-/*function openDeletePopup(uid) {
-    $.ajax({
-        url: '/Event/Delete?uid=' + uid,
-        method: 'POST',
-        success: function (data) {
-            $('#DeletePopup').html(data);
-            $("#DeletePopup").dialog({
-                modal: true,
-                width: 'auto',
-                close: function () {
-                    window.location.reload();
-                    //form[0].reset();
-                }
-            });
-        }
-    });
-}*/

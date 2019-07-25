@@ -6,12 +6,10 @@
     ViewBag.Title = "Calendar";
 
     var dayCounter = 1;
-}
 
-@{
     var prevPeriod = Model.BeginOfPeriod.AddMonths(-1);
-    var nextPeriod = Model.BeginOfPeriod.AddMonths(1);
     var today = DateTime.Today;
+    var nextPeriod = Model.BeginOfPeriod.AddMonths(1);
 }
 
 <h2>Календарь для @Model.BeginOfPeriod.ToString("MMMM"), @Model.BeginOfPeriod.Year</h2>
@@ -36,8 +34,8 @@
     </div>
 </div>
 
-<div>
-    <div>
+<div class="row">
+    <div class="col-md-8">
         <table class="table table-hover table-bordered">
             <thead>
                 <tr>
@@ -68,7 +66,7 @@
                                         tdClass = "bg-warning";
                                     }
 
-                                    <td class=@(tdClass)>
+                                    <td class="@(tdClass)">
                                         @*<div style="display:inline;">
                                                 @((dayCounter <= Model.EndOfPeriod.Day) ? $"{dayCounter}" : "")
                                                 <a href="#" onclick="openCreatePopup('Event')">+</a>
@@ -100,8 +98,8 @@
             </tbody>
         </table>
     </div>
+    <div id="searchResult" class="col-md-4"></div>
 </div>
 
 <div id="MiniDetailsResult"></div>
 <div id="EditPopup"></div>
-<div id="DeletePopup"></div>
