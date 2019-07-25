@@ -103,7 +103,7 @@ namespace IU.Plan.Core.Models
         public virtual string Place { get; set; }
 
         /// <summary>
-        /// 
+        /// Статус сущности
         /// </summary>
         public virtual EntityLifeStatus LifeStatus { get; set; }
 

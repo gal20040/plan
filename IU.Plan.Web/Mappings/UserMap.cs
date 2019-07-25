@@ -7,7 +7,6 @@ namespace IU.Plan.Web.Mappings
     {
         public UserMap()
         {
-            //Id(self => self.Guid);
             Map(self => self.Name);
             Map(self => self.Photo);
             Map(self => self.Status);
