@@ -7,14 +7,14 @@ namespace IU.Plan.Web.Mappings
     {
         public UserMap()
         {
-            Id(self => self.Guid);
+            //Id(self => self.Guid);
             Map(self => self.Name);
             Map(self => self.Photo);
             Map(self => self.Status);
             Map(self => self.Gender);
             Map(self => self.Birthday);
             Map(self => self.AllowInvites);
-            Map(self => self.Email);
+            Id(self => self.Email);
         }
     }
 }
