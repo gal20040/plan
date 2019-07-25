@@ -162,8 +162,6 @@
     <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Models\ActivityEditModel.cs" />
     <Compile Include="Models\CalendarViewModel.cs" />
-    <Compile Include="Models\EventContext.cs" />
-    <Compile Include="Models\EventDbInitializer.cs" />
     <Compile Include="Models\EventEditModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MeetingEditModel.cs" />
