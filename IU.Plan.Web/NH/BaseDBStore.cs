@@ -53,6 +53,13 @@ namespace IU.Plan.Web.NH
             return session.Load<T>(uid);
         }
 
+        protected int GetRowsCount()
+        {
+            var session = NHibernateHelper.GetCurrentSession();
+
+            return session.QueryOver<T>().List().Count;
+        }
+
         public void Update(T entity)
         {
             var session = NHibernateHelper.GetCurrentSession();

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using IU.PlanManager.ConApp;
+﻿using IU.PlanManager.ConApp;
 using IU.PlanManager.ConApp.Models;
 using NHibernate.Criterion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IU.Plan.Web.NH
 {
@@ -12,6 +12,44 @@ namespace IU.Plan.Web.NH
     /// </summary>
     public class UserDBStore : BaseDBStore<User>, IUserStore
     {
+        public UserDBStore()
+        {
+            if (GetRowsCount() == 0)
+            {
+                Init();
+            }
+        }
+
+        private void Init()
+        {
+            Add(new User()
+            {
+                Name = "Artem",
+                Status = UserStatus.Active,
+                Gender = Gender.Male,
+                AllowInvites = true,
+                Email = "artem@gmail.com"
+            });
+
+            Add(new User()
+            {
+                Name = "Paul",
+                Status = UserStatus.Active,
+                Gender = Gender.Male,
+                AllowInvites = true,
+                Email = "paul@gmail.com"
+            });
+
+            Add(new User()
+            {
+                Name = "Helen",
+                Status = UserStatus.Active,
+                Gender = Gender.Female,
+                AllowInvites = true,
+                Email = "helen@gmail.com"
+            });
+        }
+
         public override IEnumerable<User> Entities =>
             base.Entities.Where(ent => ent.Status == UserStatus.Active);
 
