@@ -8,7 +8,13 @@ namespace IU.PlanManager.ConApp.Models
     public class User : IEntity
     {
         /// <inheritdoc/>
+        [Obsolete]
         public virtual Guid Uid { get; set; }
+
+        /// <summary>
+        /// Email
+        /// </summary>
+        public virtual string Email { get; set; }
 
         /// <summary>
         /// Имя
@@ -24,11 +30,6 @@ namespace IU.PlanManager.ConApp.Models
         /// Фото
         /// </summary>
         public virtual string Photo { get; set; }
-        
-        /// <summary>
-        /// Email
-        /// </summary>
-        public virtual string Email { get; set; }
 
         /// <summary>
         /// Принимать приглашения
@@ -61,17 +62,16 @@ namespace IU.PlanManager.ConApp.Models
     public enum Gender
     {
         /// <summary>
-        /// Неопределено
+        /// Неопределён
         /// </summary>
         Undefined,
         /// <summary>
         /// Мужской
         /// </summary>
-        Man,
+        Male,
         /// <summary>
         /// Женский
         /// </summary>
-        Woman,
-
+        Female,
     }
 }
