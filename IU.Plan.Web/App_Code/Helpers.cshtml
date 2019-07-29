@@ -24,7 +24,7 @@
 @helper PrintEvents(IU.Plan.Web.Models.CalendarViewModel model, int dayNumber, DateTime today)
 {
     <div>
-        @if (dayNumber < model.Limit)
+        @if (dayNumber <= model.Limit)
         {
             DateTime day = new DateTime(today.Year, today.Month, dayNumber, 0, 0, 0);
 
