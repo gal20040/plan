@@ -1,8 +1,8 @@
-﻿using System.Web.Mvc;
-using System.Web.Security;
-using IU.Plan.Web.Models;
+﻿using IU.Plan.Web.Models;
 using IU.Plan.Web.NH;
-using IU.PlanManager.ConApp;
+using IU.PlanManager.Core.Interfaces;
+using System.Web.Mvc;
+using System.Web.Security;
 
 namespace IU.Plan.Web.Controllers
 {

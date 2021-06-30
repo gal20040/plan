@@ -1,8 +1,8 @@
-﻿using System;
+﻿using IU.PlanManager.Core.Models;
+using NHibernate.Criterion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using IU.PlanManager.ConApp.Models;
-using NHibernate.Criterion;
 
 namespace IU.Plan.Web.NH
 {

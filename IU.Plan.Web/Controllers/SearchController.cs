@@ -1,6 +1,6 @@
-﻿using System.Web.Mvc;
-using IU.Plan.Web.NH;
-using IU.PlanManager.ConApp.Models;
+﻿using IU.Plan.Web.NH;
+using IU.PlanManager.Core.Models;
+using System.Web.Mvc;
 
 namespace IU.Plan.Web.Controllers
 {

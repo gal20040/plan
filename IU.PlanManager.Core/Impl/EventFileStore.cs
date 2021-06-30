@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Newtonsoft.Json;
+﻿using IU.PlanManager.Core.Models;
 
-namespace IU.PlanManager.ConApp.Models
+namespace IU.PlanManager.Core.Impl
 {
     /// <summary>
     /// Хранилище событий <see cref="Event"/>
     /// </summary>
     public class EventFileStore : BaseFileStore<Event>
     {
-        
+
     }
 }

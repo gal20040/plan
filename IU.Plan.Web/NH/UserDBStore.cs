@@ -1,5 +1,5 @@
-﻿using IU.PlanManager.ConApp;
-using IU.PlanManager.ConApp.Models;
+﻿using IU.PlanManager.Core.Interfaces;
+using IU.PlanManager.Core.Models;
 using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using IU.PlanManager.ConApp.Models;
+﻿using IU.PlanManager.ConApp.Models;
 using IU.PlanManager.Extensions;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace IU.Plan.Web.Models
 {
@@ -22,12 +22,12 @@ namespace IU.Plan.Web.Models
             Users = evt.Participants;
         }
 
-
         public new Meeting GetEvent()
         {
             return new Meeting()
             {
                 Uid = Uid,
+                Author = Author,
                 Title = Title,
                 Description = Description,
                 StartDate = StartDate,

@@ -7,10 +7,7 @@ namespace IU.Plan.Web.Models
 {
     public class ActivityEditModel : EventEditModel
     {
-        public ActivityEditModel()
-        {
-
-        }
+        public ActivityEditModel() {}
 
         public ActivityEditModel(Activity evt) : base(evt)
         {
@@ -27,7 +24,6 @@ namespace IU.Plan.Web.Models
             PeopleAmount = evt.PeopleAmount;
         }
 
-
         public new Activity GetEvent()
         {
             var budget = Budget;
@@ -36,6 +32,7 @@ namespace IU.Plan.Web.Models
             var activity = new Activity()
             {
                 Uid = Uid,
+                Author = Author,
                 Title = Title,
                 Description = Description,
                 StartDate = StartDate,
@@ -53,15 +50,15 @@ namespace IU.Plan.Web.Models
         public Guid BudgetUid { get; set; }
 
         /// <summary>
-        /// Заголовок
+        /// Бюджет
         /// </summary>
         [Display(Name = "Бюджет")]
         public Money Budget { get; set; }
 
         /// <summary>
-        /// Заголовок
+        /// Количество участников
         /// </summary>
-        [Display(Name = "Количество людей")]
+        [Display(Name = "Количество участников")]
         public int PeopleAmount { get; set; }
     }
 }

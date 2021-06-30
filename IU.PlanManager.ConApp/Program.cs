@@ -1,6 +1,8 @@
-﻿using System;
+﻿using IU.PlanManager.Core.Impl;
+using IU.PlanManager.Core.Interfaces;
+using IU.PlanManager.Core.Models;
+using System;
 using System.Linq;
-using IU.PlanManager.ConApp.Models;
 
 namespace IU.PlanManager.ConApp
 {
@@ -8,7 +10,6 @@ namespace IU.PlanManager.ConApp
     {
         static void Main(string[] args)
         {
-
             IStore<Event> store = null;
             store = new EventFileStore();
 
@@ -40,7 +41,7 @@ namespace IU.PlanManager.ConApp
 
                             Console.WriteLine("Введите дату в dd-mm-yyyy");
                             DateTime date;
-                            if(DateTime.TryParse(Console.ReadLine(), out date))
+                            if (DateTime.TryParse(Console.ReadLine(), out date))
                             {
                                 evt.StartDate = date;
                             }

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Web.Mvc;
-using IU.Plan.Web.Models;
+﻿using IU.Plan.Web.Models;
 using IU.Plan.Web.NH;
-using IU.PlanManager.ConApp;
+using IU.PlanManager.Core.Interfaces;
 using IU.PlanManager.Extensions;
+using System;
+using System.Web.Mvc;
 
 namespace IU.Plan.Web.Controllers
 {
@@ -64,9 +64,9 @@ namespace IU.Plan.Web.Controllers
             try
             {
                 store.Delete(uid);
-                return Json(new { Result = "Ok"} );
+                return Json(new { Result = "Ok" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(new { Error = ex.Message });
             }

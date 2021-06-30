@@ -1,9 +1,9 @@
-﻿using System;
+﻿using IU.Plan.Web.NH;
+using IU.PlanManager.Core.Interfaces;
+using IU.PlanManager.Core.Models;
+using System;
 using System.Linq;
 using System.Web.Mvc;
-using IU.Plan.Web.NH;
-using IU.PlanManager.ConApp;
-using IU.PlanManager.ConApp.Models;
 
 namespace IU.Plan.Web.Controllers
 {

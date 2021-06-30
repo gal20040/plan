@@ -1,6 +1,7 @@
-﻿using System;
+﻿using IU.PlanManager.Core.Interfaces;
+using System;
 
-namespace IU.PlanManager.ConApp.Models
+namespace IU.PlanManager.Core.Models
 {
     /// <summary>
     /// Пользователь

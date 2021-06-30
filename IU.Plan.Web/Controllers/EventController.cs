@@ -1,9 +1,9 @@
-﻿using System;
-using System.Web.Mvc;
-using IU.Plan.Web.Models;
+﻿using IU.Plan.Web.Models;
 using IU.Plan.Web.NH;
-using IU.PlanManager.ConApp;
-using IU.PlanManager.ConApp.Models;
+using IU.PlanManager.Core.Interfaces;
+using IU.PlanManager.Core.Models;
+using System;
+using System.Web.Mvc;
 
 namespace IU.Plan.Web.Controllers
 {
@@ -52,6 +52,15 @@ namespace IU.Plan.Web.Controllers
             if (ModelState.IsValid)
             {
                 var evt = model.GetEvent();
+                var user = new User()
+                {
+                    Name = "Artem",
+                    Status = UserStatus.Active,
+                    Gender = Gender.Male,
+                    AllowInvites = true,
+                    Email = "artem@gmail.com"
+                };
+                evt.Author = user;
                 try
                 {
                     store.Update(evt);
@@ -65,7 +74,6 @@ namespace IU.Plan.Web.Controllers
 
             return PartialView("EventEdit", model);
         }
-
 
         [HttpPost]
         public JsonResult Delete(Guid uid)

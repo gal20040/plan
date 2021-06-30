@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using IU.PlanManager.Core.Models;
 using IU.PlanManager.Extensions;
+using System.Collections.Generic;
 
 namespace IU.PlanManager.ConApp.Models
 {

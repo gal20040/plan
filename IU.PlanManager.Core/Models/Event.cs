@@ -1,7 +1,8 @@
-﻿using System;
+﻿using IU.PlanManager.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 
-namespace IU.PlanManager.ConApp.Models
+namespace IU.PlanManager.Core.Models
 {
     /// <summary>
     /// Событие
@@ -11,12 +12,15 @@ namespace IU.PlanManager.ConApp.Models
         /// <summary>
         /// ctor
         /// </summary>
-        public Event()
-        {
-        }
+        public Event() { }
 
         /// <inheritdoc/>
         public virtual Guid Uid { get; set; }
+
+        /// <summary>
+        /// Автор
+        /// </summary>
+        public virtual User Author { get; set; }
 
         /// <summary>
         /// Заголовок
@@ -45,7 +49,7 @@ namespace IU.PlanManager.ConApp.Models
 
         public override string ToString()
         {
-            var fields = new List<string>() { StartDate?.ToShortDateString(), Title , Place};
+            var fields = new List<string>() { StartDate?.ToShortDateString(), Title, Place };
 
             fields.RemoveAll(s => string.IsNullOrWhiteSpace(s));
 
@@ -55,7 +59,6 @@ namespace IU.PlanManager.ConApp.Models
         public virtual EntityLifeStatus LifeStatus { get; set; }
     }
 
-
     /// <summary>
     /// Статус сущности
     /// </summary>
@@ -64,5 +67,4 @@ namespace IU.PlanManager.ConApp.Models
         Active,
         Deleted
     }
-
 }

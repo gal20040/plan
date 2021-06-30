@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using IU.PlanManager.ConApp.Models;
+﻿using IU.PlanManager.ConApp.Models;
+using IU.PlanManager.Core.Models;
+using System.Collections.Generic;
 
 namespace IU.PlanManager.Extensions
 {
@@ -21,7 +22,5 @@ namespace IU.PlanManager.Extensions
             }
             set { _participants = value; }
         }
-
     }
-
 }

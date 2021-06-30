@@ -1,5 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
-using IU.PlanManager.ConApp.Models;
+using IU.PlanManager.Core.Models;
 
 namespace IU.Plan.Web.Mappings
 {
@@ -7,6 +7,7 @@ namespace IU.Plan.Web.Mappings
     {
         public UserMap()
         {
+            //Id(user => user.Uid);
             Id(user => user.Email);
             Map(user => user.Name);
             Map(user => user.Photo);

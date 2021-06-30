@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IU.PlanManager.ConApp
+namespace IU.PlanManager.Core.Interfaces
 {
     /// <summary>
     /// Интерфейс хранилища
@@ -36,6 +36,5 @@ namespace IU.PlanManager.ConApp
         /// </summary>
         /// <param name="uid">ID сущности</param>
         void Delete(Guid uid);
-
     }
 }

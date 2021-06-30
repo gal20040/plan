@@ -1,10 +1,11 @@
-﻿using System;
+﻿using IU.PlanManager.Core.Interfaces;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
 
-namespace IU.PlanManager.ConApp.Models
+namespace IU.PlanManager.Core.Impl
 {
     /// <summary>
     /// Хранилище событий <see cref="IEntity"/>
@@ -92,6 +93,5 @@ namespace IU.PlanManager.ConApp.Models
                 Flush();
             }
         }
-
     }
 }

@@ -1,4 +1,4 @@
-﻿using IU.PlanManager.ConApp.Models;
+﻿using IU.PlanManager.Core.Models;
 
 namespace IU.PlanManager.Extensions
 {

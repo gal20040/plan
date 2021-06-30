@@ -1,5 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
-using IU.PlanManager.ConApp.Models;
+using IU.PlanManager.Core.Models;
 
 namespace IU.Plan.Web.Mappings
 {
@@ -7,13 +7,14 @@ namespace IU.Plan.Web.Mappings
     {
         public EventMap()
         {
-            Id(evt => evt.Uid);
-            Map(evt => evt.Title);
-            Map(evt => evt.Description).Length(4001);
-            Map(evt => evt.StartDate).Nullable();
-            Map(evt => evt.EndDate).Nullable();
-            Map(evt => evt.Place);
-            Map(evt => evt.LifeStatus);
+            Id(self => self.Uid);
+            HasOne(self => self.Author);
+            Map(self => self.Title);
+            Map(self => self.Description).Length(4001);
+            Map(self => self.StartDate).Nullable();
+            Map(self => self.EndDate).Nullable();
+            Map(self => self.Place);
+            Map(self => self.LifeStatus);
         }
     }
 }

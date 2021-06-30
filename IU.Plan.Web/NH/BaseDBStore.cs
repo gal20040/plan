@@ -1,6 +1,6 @@
-﻿using System;
+﻿using IU.PlanManager.Core.Interfaces;
+using System;
 using System.Collections.Generic;
-using IU.PlanManager.ConApp;
 
 namespace IU.Plan.Web.NH
 {
@@ -41,6 +41,10 @@ namespace IU.Plan.Web.NH
                     tx.Commit();
                 }
             }
+            catch (Exception ex)
+            {
+                var s = ex.Message;
+            }
             finally
             {
                 NHibernateHelper.CloseSession();
@@ -70,6 +74,10 @@ namespace IU.Plan.Web.NH
                     session.SaveOrUpdate(entity);
                     tx.Commit();
                 }
+            }
+            catch (Exception ex)
+            {
+                var s = ex.Message;
             }
             finally
             {

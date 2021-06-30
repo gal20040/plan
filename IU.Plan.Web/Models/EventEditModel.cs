@@ -1,16 +1,13 @@
-﻿using System;
+﻿using IU.PlanManager.Core.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using IU.PlanManager.ConApp.Models;
 
 namespace IU.Plan.Web.Models
 {
     public class EventEditModel
     {
-        public EventEditModel()
-        {
-
-        }
+        public EventEditModel() { }
 
         public EventEditModel(Event evt)
         {
@@ -20,6 +17,7 @@ namespace IU.Plan.Web.Models
             }
 
             Uid = evt.Uid;
+            Author = evt.Author;
             Title = evt.Title;
             Description = evt.Description;
             StartDate = evt.StartDate;
@@ -32,6 +30,7 @@ namespace IU.Plan.Web.Models
             return new Event()
             {
                 Uid = Uid,
+                Author = Author,
                 Title = Title,
                 Description = Description,
                 StartDate = StartDate,
@@ -43,6 +42,21 @@ namespace IU.Plan.Web.Models
         /// <inheritdoc/>
         [HiddenInput(DisplayValue = false)]
         public Guid Uid { get; set; }
+
+        /// <summary>
+        /// Автор события
+        /// </summary>
+        [HiddenInput(DisplayValue = false)]
+        public User Author { get; set; }
+
+        /// <summary>
+        /// Имя автора события
+        /// </summary>
+        [Display(Name = "Автор события")]
+        public string AuthorName
+        {
+            get { return Author.Name; }
+        }
 
         /// <summary>
         /// Заголовок

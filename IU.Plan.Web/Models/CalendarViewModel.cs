@@ -1,6 +1,6 @@
-﻿using System;
+﻿using IU.PlanManager.Core.Models;
+using System;
 using System.Collections.Generic;
-using IU.PlanManager.ConApp.Models;
 
 namespace IU.Plan.Web.Models
 {

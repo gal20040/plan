@@ -1,6 +1,6 @@
-﻿using System;
-using IU.PlanManager.ConApp;
-using IU.PlanManager.ConApp.Models;
+﻿using IU.PlanManager.Core.Interfaces;
+using IU.PlanManager.Core.Models;
+using System;
 
 namespace IU.PlanManager.Extensions
 {
@@ -19,7 +19,6 @@ namespace IU.PlanManager.Extensions
         /// </summary>
         public virtual int PeopleAmount { get; set; }
     }
-
 
     /// <summary>
     /// Деньги
